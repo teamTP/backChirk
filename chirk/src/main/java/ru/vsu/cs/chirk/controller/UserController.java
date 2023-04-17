@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.vsu.cs.chirk.service.UserService;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
