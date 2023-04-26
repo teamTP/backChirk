@@ -20,5 +20,12 @@ public class UserController {
         return "Hello, World!";
     }
 
+    @GetMapping("/register")
+    public String register() {
+        userService.hello();
+        System.out.println("бббббббб");
+        return "register";
+    }
+
 
 }
