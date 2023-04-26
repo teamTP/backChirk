@@ -6,7 +6,6 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 
 @EntityScan("ru.vsu.cs.chirk")
-@ComponentScan("ru.vsu.cs.chirk")
 @SpringBootApplication
 public class ChirkApplication {
 
