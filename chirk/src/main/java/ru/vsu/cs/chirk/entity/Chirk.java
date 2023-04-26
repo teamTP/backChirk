@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "chirk")
@@ -25,16 +26,29 @@ public class Chirk {
     private User user;
 
     @Column(name = "text")
-    private long text;
+    private String text;
 
     @Column(name = "is_visible")
     private boolean isVisible;
 
     @Column(name = "date_publication")
-    private Date date;
+    private LocalDateTime date;
 
     @Column(name = "is_one_day")
     private boolean isOneDay;
+
+    @Override
+    public String toString() {
+        return "Chirk{" +
+                "id=" + id +
+                ", roleId=" + roleId +
+                ", user=" + user +
+                ", text=" + text +
+                ", isVisible=" + isVisible +
+                ", date=" + date +
+                ", isOneDay=" + isOneDay +
+                '}';
+    }
 
 
 }
