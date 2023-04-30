@@ -16,15 +16,14 @@ public class User {
     @Column(name = "id")
     private long id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "firstname")
+    private String firstname;
 
-    @Column(name = "surname")
-    private String surname;
+    @Column(name = "lastname")
+    private String lastname;
 
-    @Column(name = "fsfgks[kg[s")
-    private String surname;
-
+    @Column(name = "username")
+    private String username;
 
     @Column(name = "login")
     private String login;
@@ -47,6 +46,6 @@ public class User {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
+        return Objects.hash(id, firstname);
     }
 }

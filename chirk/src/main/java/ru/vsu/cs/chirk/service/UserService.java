@@ -18,10 +18,10 @@ public class UserService {
 
     public void hello(){
         User user = new User();
-        user.setName("Oo");
+        user.setFirstname("Oo");
         user.setLogin("111");
         user.setPassword("222");
-        user.setSurname("Bb");
+        user.setLastname("Bb");
         userRepository.save(user);
         System.out.println("helloo");
     }

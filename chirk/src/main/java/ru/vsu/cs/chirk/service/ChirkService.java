@@ -29,7 +29,7 @@ public class ChirkService {
     public void createChirk(Chirk chirk) {
         chirk.setDate(LocalDateTime.now());
         chirk.setVisible(true);
-        chirk.setUser(userRepository.findById(chirk.getRoleId())
+        chirk.setUser(userRepository.findById(chirk.getUser().getId())
                 .orElseThrow(() -> new NoSuchElementException("Пользователь не существует")));
         chirkRepository.save(chirk);
         if (chirk.isOneDay()){
