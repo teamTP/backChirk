@@ -7,7 +7,7 @@ import lombok.Setter;
 import java.util.Objects;
 
 @Entity
-@Table(name = "\"user\"")
+@Table(name = "users")
 @Getter @Setter
 public class User {
 
@@ -27,9 +27,6 @@ public class User {
 
     @Column(name = "password")
     private String password;
-
-    @Column(name = "role_id")
-    private long roleId;
 
     @ManyToOne
     @JoinColumn(name = "role", referencedColumnName = "id", insertable = false, updatable = false)

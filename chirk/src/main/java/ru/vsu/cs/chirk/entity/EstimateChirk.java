@@ -13,7 +13,9 @@ import lombok.Setter;
 public class EstimateChirk {
 
 //    @EmbeddedId
-//    private EstimateChirkPK id;
+//    private EstimateChirkPK   id;
+
+
 
 
     @Id
@@ -21,18 +23,12 @@ public class EstimateChirk {
     @Column(name = "id")
     private long id;
 
-    @Column(name = "user_id", insertable=false, updatable=false)
-    private long userId;
-
     @ManyToOne
-    @JoinColumn(name = "\"user\"", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "users", referencedColumnName = "id", insertable = false, updatable = false)
     private User user;
 
-    @Column(name = "chirk_id", insertable=false, updatable=false)
-    private long chirk_id;
-
     @ManyToOne
-    @JoinColumn(name = "\"chirk\"", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "chirk", referencedColumnName = "id", insertable = false, updatable = false)
     private Chirk chirk;
 
     @Column(name = "is_liked")
