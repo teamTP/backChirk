@@ -33,5 +33,18 @@ public class Chirk {
     @Column(name = "is_one_day")
     private boolean isOneDay;
 
+    @Override
+    public String toString() {
+        return "Chirk{" +
+                "id=" + id +
+                ", roleId=" + roleId +
+                ", user=" + user +
+                ", text=" + text +
+                ", isVisible=" + isVisible +
+                ", date=" + date +
+                ", isOneDay=" + isOneDay +
+                '}';
+    }
+
 
 }
