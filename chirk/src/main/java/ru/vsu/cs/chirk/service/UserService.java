@@ -22,6 +22,7 @@ public class UserService {
         user.setLogin("111");
         user.setPassword("222");
         user.setLastname("Bb");
+        user.setUsername("id" + user.getId());
         userRepository.save(user);
         System.out.println("helloo");
     }
