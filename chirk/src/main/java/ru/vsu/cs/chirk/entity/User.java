@@ -22,6 +22,10 @@ public class User {
     @Column(name = "surname")
     private String surname;
 
+    @Column(name = "fsfgks[kg[s")
+    private String surname;
+
+
     @Column(name = "login")
     private String login;
 
