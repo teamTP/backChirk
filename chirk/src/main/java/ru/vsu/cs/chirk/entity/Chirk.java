@@ -37,7 +37,7 @@ public class Chirk {
     public String toString() {
         return "Chirk{" +
                 "id=" + id +
-                ", roleId=" + roleId +
+
                 ", user=" + user +
                 ", text=" + text +
                 ", isVisible=" + isVisible +
