@@ -16,12 +16,8 @@ public class Chirk {
     @Column(name = "id")
     private long id;
 
-
-    @Column(name = "user_id")
-    private long roleId;
-
     @ManyToOne
-    @JoinColumn(name = "\"user\"", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "users", referencedColumnName = "id", insertable = false, updatable = false)
     private User user;
 
     @Column(name = "text")
