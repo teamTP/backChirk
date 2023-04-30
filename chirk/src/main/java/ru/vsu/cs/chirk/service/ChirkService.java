@@ -29,10 +29,27 @@ public class ChirkService {
     public void createChirk(Chirk chirk) {
         chirk.setDate(LocalDateTime.now());
         chirk.setVisible(true);
-        chirk.setUser(userRepository.findById(chirk.getRoleId()).orElseThrow(() -> new NoSuchElementException("User doesn't exist")));
+        chirk.setUser(userRepository.findById(chirk.getRoleId())
+                .orElseThrow(() -> new NoSuchElementException("Пользователь не существует")));
         chirkRepository.save(chirk);
         if (chirk.isOneDay()){
             scheduler.schedule(new RunnableTask(chirk.getId(), chirkRepository), Instant.now().plusSeconds(6));
+        }
+    }
+    public void deleteChirk(Long chirkId) {
+        Chirk chirk = chirkRepository.findById(chirkId)
+                .orElseThrow(() -> new NoSuchElementException("Публикация не существует"));
+        chirkRepository.delete(chirk);
+    }
+    public void updateVisible(Long chirkId) {
+        Chirk chirk = chirkRepository.findById(chirkId)
+                .orElseThrow(() -> new NoSuchElementException("Публикация не существует"));
+        if (chirk.isVisible()) {
+            chirk.setVisible(false);
+            chirkRepository.save(chirk);
+        } else {
+            chirk.setVisible(true);
+            chirkRepository.save(chirk);
         }
     }
 }

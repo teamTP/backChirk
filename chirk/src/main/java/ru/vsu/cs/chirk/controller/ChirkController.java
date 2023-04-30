@@ -16,6 +16,17 @@ public class ChirkController {
         System.out.println(chirk);
         return chirk;
     }
+    @DeleteMapping("/delete")
+    public void deleteChirk(@RequestBody Chirk chirk) {
+        chirkService.deleteChirk(chirk.getId());
+        System.out.println(chirk);
+    }
+    @PutMapping("/updateVisible")
+    public void updateVisible(@RequestBody Chirk chirk) {
+        chirkService.updateVisible(chirk.getId());
+        System.out.println(chirk);
+    }
+
     @GetMapping("/")
     public String chirk() {
         return "Hello, World!";
