@@ -22,8 +22,13 @@ public class User {
     @Column(name = "lastname")
     private String lastname;
 
+
     @Column(name = "username")
     private String username;
+    @PostPersist
+    public void setUsernameBeforePersist() {
+        this.username = "id" + this.id;
+    }
 
     @Column(name = "login")
     private String login;
@@ -34,6 +39,7 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "role", referencedColumnName = "id", insertable = false, updatable = false)
     private UserRole role;
+
 
 
     @Override
