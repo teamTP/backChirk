@@ -4,11 +4,14 @@ package ru.vsu.cs.chirk.entity.DTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @AllArgsConstructor
 public class ChirkDTO {
 
+    private long idUser;
     private String text;
-    private String date_publication;
-    private String is_one_day;
+    private LocalDateTime datePublication;
+    private boolean isOneDay;
 }
