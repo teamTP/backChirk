@@ -28,17 +28,18 @@ public class SwaggerConfig {
                 .version("v0.0.1")
                 .contact(contactInfo);
 
-        SecurityScheme securityScheme = new SecurityScheme()
-                .type(SecurityScheme.Type.HTTP)
-                .scheme("bearer")
-                .bearerFormat("JWT");
-
-        Components apiComponents = new Components()
-                .addSecuritySchemes("JWT Authentication", securityScheme);
+//        SecurityScheme securityScheme = new SecurityScheme()
+//                .type(SecurityScheme.Type.HTTP)
+//                .scheme("bearer")
+//                .bearerFormat("JWT");
+//
+//        Components apiComponents = new Components()
+//                .addSecuritySchemes("JWT Authentication", securityScheme);
 
         return new OpenAPI()
                 .info(apiInfo)
-                .components(apiComponents);
+//                .components(apiComponents)
+                ;
     }
 
     @Bean
