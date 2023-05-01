@@ -1,5 +1,9 @@
 package ru.vsu.cs.chirk.entity.DTO;
 
+
+import lombok.Getter;
+
+@Getter
 public class ChirkDTO {
 
     private String text;

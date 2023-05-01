@@ -5,6 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 //import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.vsu.cs.chirk.Mappers.UserMapper;
+import ru.vsu.cs.chirk.entity.DTO.UserDTO;
 import ru.vsu.cs.chirk.entity.User;
 import ru.vsu.cs.chirk.repository.UserRepository;
 
@@ -24,6 +26,12 @@ public class UserService {
         user.setLastname("Bb");
         user.setUsername("id" + user.getId());
         userRepository.save(user);
+
+        UserDTO userDTO = UserMapper.INSTANCE.userToUserDTO(user);
+
+        System.out.println(userDTO.getUsername()); // выводит "John"
+        System.out.println(userDTO.getLastname()); // выводит "Doe"
+        System.out.println(userDTO.getFirstname()); // выводит "Doe"
         System.out.println("helloo");
     }
 
