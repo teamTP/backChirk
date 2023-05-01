@@ -24,10 +24,10 @@ public class UserService {
         user.setLogin("111");
         user.setPassword("222");
         user.setLastname("Bb");
-        user.setUsername("id" + user.getId());
+//        user.setUsername("id" + user.getId());
         userRepository.save(user);
 
-        UserDTO userDTO = UserMapper.INSTANCE.userToUserDTO(user);
+        UserDTO userDTO = new UserMapper().convertToDTO(user);
 
         System.out.println(userDTO.getUsername()); // выводит "John"
         System.out.println(userDTO.getLastname()); // выводит "Doe"

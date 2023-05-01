@@ -1,9 +1,11 @@
 package ru.vsu.cs.chirk.entity.DTO;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
+@AllArgsConstructor
 public class ChirkDTO {
 
     private String text;

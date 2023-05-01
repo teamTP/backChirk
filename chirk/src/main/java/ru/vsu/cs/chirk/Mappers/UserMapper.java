@@ -1,17 +1,16 @@
 package ru.vsu.cs.chirk.Mappers;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
-import ru.vsu.cs.chirk.entity.User;
+
 import ru.vsu.cs.chirk.entity.DTO.UserDTO;
+import ru.vsu.cs.chirk.entity.User;
 
-@Mapper
-public interface UserMapper {
-    UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
+public class UserMapper implements EntityMapper<UserDTO, User>{
 
-    @Mapping(source = "firstname", target = "firstName")
-    @Mapping(source = "lastname", target = "lastName")
-    @Mapping(source = "username", target = "username")
-    UserDTO userToUserDTO(User user);
+    @Override
+    public UserDTO convertToDTO(User user) {
+        return new UserDTO(
+                user.getFirstname(),
+                user.getLastname(),
+                user.getUsername()
+        );
+    }
 }
-
