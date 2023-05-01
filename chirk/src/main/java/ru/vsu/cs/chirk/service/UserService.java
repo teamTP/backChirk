@@ -16,15 +16,16 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public void hello(){
+    public User hello(){
         User user = new User();
         user.setFirstname("Oo");
-        user.setLogin("111");
+        user.setEmail("111");
         user.setPassword("222");
         user.setLastname("Bb");
         user.setUsername("id" + user.getId());
         userRepository.save(user);
         System.out.println("helloo");
+        return user;
     }
 
 
