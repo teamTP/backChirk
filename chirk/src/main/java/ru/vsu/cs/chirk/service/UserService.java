@@ -18,7 +18,7 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public void hello(){
+    public UserDTO hello(){
         User user = new User();
         user.setFirstname("Oo");
         user.setLogin("111");
@@ -33,6 +33,7 @@ public class UserService {
         System.out.println(userDTO.getLastname()); // выводит "Doe"
         System.out.println(userDTO.getFirstname()); // выводит "Doe"
         System.out.println("helloo");
+        return userDTO;
     }
 
 
