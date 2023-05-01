@@ -14,9 +14,21 @@ public class UserRole {
     @Column(name = "id")
     private long id;
 
-    @Column(name = "role_name")
-    private String roleName;
+//    @Column(name = "role_name")
+//    private String roleName;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role_name", length = 20)
+    private ERole roleName;
 
     @Column(name = "description")
     private String description;
+
+    public UserRole(ERole roleName) {
+        this.roleName = roleName;
+    }
+
+    public UserRole() {}
+
+
 }
