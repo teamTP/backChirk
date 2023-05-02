@@ -18,15 +18,17 @@ public class UserService {
     private UserRepository userRepository;
 
     public User hello(){
+        System.out.println("helloo2222");
         User user = new User();
-        user.setFirstname("Oo");
-        user.setEmail("111");
-        user.setPassword("222");
-        user.setLastname("Bb");
+//        User user1 = new User("firstname", "lastname", "username", "email", "password");
+        user.setFirstname("firstname");
+        user.setEmail("email");
+        user.setPassword("password");
+        user.setLastname("lastname");
         user.setUsername("id" + user.getId());
-//        user.setRole(ERole.ORDINARY);
-        userRepository.save(user);
-        System.out.println("helloo");
+        user.setRole(ERole.ORDINARY);
+//        userRepository.save(user);
+        System.out.println("helloo!!!!!!!!!!!!!!!!!!");
         return user;
     }
 

@@ -17,6 +17,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import ru.vsu.cs.chirk.security.JwtTokenFilter;
 
 import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.POST;
 
 @Configuration
 @EnableWebSecurity
@@ -55,10 +56,11 @@ public class SecurityConfig implements WebMvcConfigurer {
         http.cors().and().csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeHttpRequests()
-                .requestMatchers("/auth/").permitAll()
-                .requestMatchers(GET, "/categories/", "/products/", "/v3/api-docs/",
-                        "/swagger-ui/", "/swagger-ui.html").permitAll()
-                .requestMatchers(GET, "/user/").permitAll()
+//                .requestMatchers("/auth/").permitAll()
+//                .requestMatchers(GET, "/categories/", "/products/", "/v3/api-docs/",
+//                        "/swagger-ui/", "/swagger-ui.html").permitAll()
+                .requestMatchers(GET, "/user/**").permitAll()
+                .requestMatchers(POST, "/user/**").permitAll()
 //                .requestMatchers(GET, "/orders/").hasAnyAuthority(USER)
 
 //                .requestMatchers(POST, "/categories/**", "/products").hasAnyAuthority(ADMIN)

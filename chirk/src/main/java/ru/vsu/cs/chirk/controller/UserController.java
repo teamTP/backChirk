@@ -28,7 +28,7 @@ public class UserController {
 
     @PostMapping("/register")
     public String register() {
-        authenticationService.registerUser(userService.hello());
+        var token = authenticationService.registerUser(userService.hello());
         System.out.println("бббббббб");
         return "register";
     }
