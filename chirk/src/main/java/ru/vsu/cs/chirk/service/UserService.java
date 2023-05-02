@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 //import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.vsu.cs.chirk.entity.ERole;
 import ru.vsu.cs.chirk.entity.User;
 import ru.vsu.cs.chirk.repository.UserRepository;
 
@@ -23,6 +24,7 @@ public class UserService {
         user.setPassword("222");
         user.setLastname("Bb");
         user.setUsername("id" + user.getId());
+//        user.setRole(ERole.ORDINARY);
         userRepository.save(user);
         System.out.println("helloo");
         return user;
