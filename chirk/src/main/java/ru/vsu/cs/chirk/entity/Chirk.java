@@ -3,6 +3,7 @@ package ru.vsu.cs.chirk.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import ru.vsu.cs.chirk.entity.DTO.UserDTO;
 
 import java.sql.Date;
 import java.time.LocalDateTime;
@@ -32,6 +33,8 @@ public class Chirk {
 
     @Column(name = "is_one_day")
     private boolean isOneDay;
+
+
 
     @Override
     public String toString() {

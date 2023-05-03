@@ -25,14 +25,17 @@ public class EstimateChirk {
 
     @ManyToOne
     @JoinColumn(name = "users", referencedColumnName = "id", insertable = false, updatable = false)
-    private User user;
+    private User userID;
 
     @ManyToOne
     @JoinColumn(name = "chirk", referencedColumnName = "id", insertable = false, updatable = false)
-    private Chirk chirk;
+    private Chirk chirkID;
 
     @Column(name = "is_liked")
     private boolean isLiked;
+
+    @Column(name = "is_canceled_reaction")
+    private boolean isCanceledReaction;
 
 
 }
