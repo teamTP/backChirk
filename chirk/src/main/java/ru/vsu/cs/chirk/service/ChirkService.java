@@ -47,7 +47,7 @@ public class ChirkService {
     }
 
     public Chirk getChirk(long chirkId){
-        return chirkRepository.findById(chirkId).orElseThrow();
+        return chirkRepository.findById(chirkId).orElseThrow(()-> new NoSuchElementException("Публикация не существует"));
     }
 
     public void deleteChirk(Long chirkId) {

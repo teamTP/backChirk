@@ -1,8 +1,10 @@
 package ru.vsu.cs.chirk.controller;
 
+import org.checkerframework.checker.units.qual.C;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.vsu.cs.chirk.entity.Chirk;
+import ru.vsu.cs.chirk.repository.ChirkRepository;
 import ru.vsu.cs.chirk.service.ChirkService;
 @RestController
 @RequestMapping("/chirks")
@@ -28,7 +30,8 @@ public class ChirkController {
     }
 
     @GetMapping("/")
-    public String chirk() {
-        return "Hello, World!";
+    public Chirk chirk() {
+        return chirkService.getChirk(1);
+        //return "Hello, World!";
     }
 }

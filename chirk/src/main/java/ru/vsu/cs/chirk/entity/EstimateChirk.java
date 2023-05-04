@@ -2,14 +2,19 @@ package ru.vsu.cs.chirk.entity;
 
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 //import org.hibernate.annotations.Entity;
 //import org.hibernate.annotations.Table;
 
 @Entity
-@Table(name = "estimate_chirk")
+//@Table(name = "estimate_chirk")
+@Table(uniqueConstraints = {@UniqueConstraint(name = "estimate_chirk", columnNames = { "users", "chirk" })})
 @Getter @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class EstimateChirk {
 
 //    @EmbeddedId
@@ -24,11 +29,11 @@ public class EstimateChirk {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "users", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "users", nullable = false)
     private User userID;
 
     @ManyToOne
-    @JoinColumn(name = "chirk", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "chirk", nullable = false)
     private Chirk chirkID;
 
     @Column(name = "is_liked")
@@ -37,5 +42,14 @@ public class EstimateChirk {
     @Column(name = "is_canceled_reaction")
     private boolean isCanceledReaction;
 
-
+    @Override
+    public String toString() {
+        return "EstimateChirk{" +
+                "id=" + id +
+                ", userID=" + userID +
+                ", chirkID=" + chirkID +
+                ", isLiked=" + isLiked +
+                ", isCanceledReaction=" + isCanceledReaction +
+                '}';
+    }
 }

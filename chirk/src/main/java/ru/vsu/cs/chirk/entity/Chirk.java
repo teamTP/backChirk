@@ -7,6 +7,7 @@ import ru.vsu.cs.chirk.entity.DTO.UserDTO;
 
 import java.sql.Date;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @Table(name = "chirk")
@@ -19,7 +20,7 @@ public class Chirk {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "users", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "users", nullable = false)
     private User user;
 
     @Column(name = "text")
@@ -34,7 +35,18 @@ public class Chirk {
     @Column(name = "is_one_day")
     private boolean isOneDay;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Chirk chirk = (Chirk) o;
+        return id == chirk.id;
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 
     @Override
     public String toString() {
