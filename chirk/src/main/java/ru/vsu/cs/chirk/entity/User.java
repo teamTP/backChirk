@@ -40,7 +40,7 @@ public class User {
     @JoinColumn(name = "role", referencedColumnName = "id", insertable = false, updatable = false)
     private UserRole role;
 
-
+    //TODO idIcon добавить
 
     @Override
     public boolean equals(Object o) {

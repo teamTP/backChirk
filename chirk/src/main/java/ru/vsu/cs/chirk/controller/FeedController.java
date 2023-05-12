@@ -3,9 +3,8 @@ package ru.vsu.cs.chirk.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.vsu.cs.chirk.entity.Chirk;
+import ru.vsu.cs.chirk.entity.DTO.request.FeedRequest;
 import ru.vsu.cs.chirk.entity.DTO.ChirkFeedDTO;
-import ru.vsu.cs.chirk.entity.User;
 import ru.vsu.cs.chirk.repository.UserRepository;
 import ru.vsu.cs.chirk.service.ChirkService;
 
@@ -37,10 +36,20 @@ public class FeedController {
 //        return null;
 //    }
 
+//    @GetMapping
+//    public List<ChirkFeedDTO> feed(){
+//        //TODO доставать id из токена @Pekanov
+//        List<ChirkFeedDTO> chirkFeedDTOList = chirkService.createListChirkFeed(0, 1L);
+//        System.out.println(chirkFeedDTOList);
+//        return chirkFeedDTOList;
+//    }
+
     @GetMapping
-    public List<ChirkFeedDTO> feed(){
+    public List<ChirkFeedDTO> feed(@RequestBody FeedRequest feedRequest){
         //TODO доставать id из токена @Pekanov
-        List<ChirkFeedDTO> chirkFeedDTOList = chirkService.createListChirkFeed(0, 1L);
+//        System.out.println(feedRequest);
+
+        List<ChirkFeedDTO> chirkFeedDTOList = chirkService.createListChirkFeed(feedRequest.getPage(), feedRequest.getUserId());
         System.out.println(chirkFeedDTOList);
         return chirkFeedDTOList;
     }
