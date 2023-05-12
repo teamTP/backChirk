@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import ru.vsu.cs.chirk.entity.Chirk;
 import ru.vsu.cs.chirk.entity.EstimateChirk;
+import ru.vsu.cs.chirk.entity.User;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
 public interface EstimateChirkRepository extends JpaRepository<EstimateChirk, Long> {
 
     List<EstimateChirkRepository> findByChirkID(Chirk chirk);
-
+    EstimateChirk findByUserIDAndChirkID(User user, Chirk chirk);
     int countByChirkIDAndIsLikedAndIsCanceledReaction(Chirk chirk, boolean isLiked, boolean isCanceledReaction);
 
 

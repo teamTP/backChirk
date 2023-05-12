@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.vsu.cs.chirk.entity.Reaction;
 
 import java.time.LocalDateTime;
 
@@ -19,6 +20,7 @@ public class ChirkFeedDTO {
     private String userLastname;
     private int countLike;
     private int countDislike;
+    private Reaction reaction;
 
     @Override
     public String toString() {
@@ -30,6 +32,7 @@ public class ChirkFeedDTO {
                 ", userLastname='" + userLastname + '\'' +
                 ", countLike=" + countLike +
                 ", countDislike=" + countDislike +
+                ", reaction=" + reaction +
                 '}';
     }
 }
