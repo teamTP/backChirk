@@ -34,8 +34,8 @@ public class UserController {
     @PostMapping(value = "/register", produces = MediaType.APPLICATION_JSON_VALUE)
 //    public ResponseEntity<JwtTokensDto> register(@RequestBody UserRegistrationDTO userRegistrationDTO) {
 
-        public ResponseEntity<JwtTokensDto> register () {
-        UserRegistrationDTO userRegistrationDTO = new UserRegistrationDTO("OlegPidor", "Pidor+Ochkoshnik", "AdminDurka@TarasovIsGood.hui", "000000" );
+        public ResponseEntity<JwtTokensDto> register (@RequestBody UserRegistrationDTO userRegistrationDTO) {
+//        UserRegistrationDTO userRegistrationDTO = new UserRegistrationDTO("Oleg", "Oc", "AdminDu@Good", "000000" );
 
         JwtTokensDto token = authenticationService.registerUser(userRegistrationDTO);
 
@@ -50,8 +50,8 @@ public class UserController {
     @PostMapping(value = "/authorisation", produces = MediaType.APPLICATION_JSON_VALUE)
     //    public ResponseEntity<JwtTokensDto> authorise(@RequestBody UserAuthorisationDTO userAuthorisationDTO) {
 
-    public ResponseEntity<JwtTokensDto> authorise () {
-        UserAuthorisationDTO userAuthorisationDTO = new UserAuthorisationDTO("AdminDurka@TarasovIsGood.hui", "000000" );
+    public ResponseEntity<JwtTokensDto> authorise (@RequestBody UserAuthorisationDTO userAuthorisationDTO) {
+//        UserAuthorisationDTO userAuthorisationDTO = new UserAuthorisationDTO("AdminDu@Good", "000000" );
 
         JwtTokensDto token = authenticationService.loginUser(userAuthorisationDTO);
 

@@ -43,7 +43,7 @@ public class AuthenticationService {
                 userDTO.getEmail(),
                 passwordEncoder.encode(userDTO.getPassword()),
                 ERole.ORDINARY);
-
+        userRepository.save(newUser);
         return createTokensForUser(newUser);
 
     }
@@ -60,8 +60,10 @@ public class AuthenticationService {
 
 
     public JwtTokensDto loginUser(UserAuthorisationDTO userAuthorisationDTO) {
+        //TODO хочет убрать 64 стр
+        User user = userRepository.findByEmail(userAuthorisationDTO.getEmail()).get();
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                userAuthorisationDTO.getEmail(), userAuthorisationDTO.getPassword()));
+                user.getUsername(), userAuthorisationDTO.getPassword()));
         User dbUser = userRepository.findByEmail(userAuthorisationDTO.getEmail())
                 .orElseThrow(() -> new NoSuchElementException("User with email: " + userAuthorisationDTO.getEmail() + " not exist"));
         return createTokensForUser(dbUser);
