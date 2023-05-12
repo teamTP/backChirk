@@ -2,8 +2,13 @@ package ru.vsu.cs.chirk.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import ru.vsu.cs.chirk.entity.DTO.JwtTokensDto;
+import ru.vsu.cs.chirk.entity.DTO.UserAuthorisationDTO;
+import ru.vsu.cs.chirk.entity.DTO.UserRegistrationDTO;
 import ru.vsu.cs.chirk.service.AuthenticationService;
 import ru.vsu.cs.chirk.service.UserService;
 
@@ -26,12 +31,37 @@ public class UserController {
         return "Hello, World!";
     }
 
-    @PostMapping("/register")
-    public String register() {
-        var token = authenticationService.registerUser(userService.hello());
-        System.out.println("бббббббб");
-        return "register";
+    @PostMapping(value = "/register", produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<JwtTokensDto> register(@RequestBody UserRegistrationDTO userRegistrationDTO) {
+
+        public ResponseEntity<JwtTokensDto> register () {
+        UserRegistrationDTO userRegistrationDTO = new UserRegistrationDTO("OlegPidor", "Pidor+Ochkoshnik", "AdminDurka@TarasovIsGood.hui", "000000" );
+
+        JwtTokensDto token = authenticationService.registerUser(userRegistrationDTO);
+
+        for (int i = 0; i < 10; i++) {
+            System.out.println("register is OK");
+        }
+        return ResponseEntity.ok().body(token);
     }
+
+
+
+    @PostMapping(value = "/authorisation", produces = MediaType.APPLICATION_JSON_VALUE)
+    //    public ResponseEntity<JwtTokensDto> authorise(@RequestBody UserAuthorisationDTO userAuthorisationDTO) {
+
+    public ResponseEntity<JwtTokensDto> authorise () {
+        UserAuthorisationDTO userAuthorisationDTO = new UserAuthorisationDTO("AdminDurka@TarasovIsGood.hui", "000000" );
+
+        JwtTokensDto token = authenticationService.loginUser(userAuthorisationDTO);
+
+        for (int i = 0; i < 10; i++) {
+            System.out.println("authorise is OK");
+        }
+        return ResponseEntity.ok().body(token);
+    }
+
+
 
 
 }

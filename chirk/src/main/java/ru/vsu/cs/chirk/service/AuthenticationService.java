@@ -7,6 +7,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.vsu.cs.chirk.entity.DTO.JwtTokensDto;
+import ru.vsu.cs.chirk.entity.DTO.UserAuthorisationDTO;
+import ru.vsu.cs.chirk.entity.DTO.UserRegistrationDTO;
 import ru.vsu.cs.chirk.entity.ERole;
 import ru.vsu.cs.chirk.entity.User;
 import ru.vsu.cs.chirk.repository.UserRepository;
@@ -28,30 +30,20 @@ public class AuthenticationService {
      * Тут нужно вместо юзера юзерДТО для регистрации, что бы без лишних данных приходило
      */
 
-    public JwtTokensDto registerUser(User user){
-        if(userRepository.findByUsername(user.getUsername()).isPresent()){
-            throw new IllegalArgumentException("User with username: " + user.getUsername() + "already exist");
+    public JwtTokensDto registerUser(UserRegistrationDTO userDTO){
+
+
+
+        if(userRepository.findByEmail(userDTO.getEmail()).isPresent()){
+            throw new IllegalArgumentException("User with username: " + userDTO.getEmail() + "already exist");
         }
 
-//        User user = modelMapper.map(userDto, User.class);
+        User newUser = new User(userDTO.getFirstname(),
+                userDTO.getLastname(),
+                userDTO.getEmail(),
+                passwordEncoder.encode(userDTO.getPassword()),
+                ERole.ORDINARY);
 
-
-        User newUser = user;
-
-//        user.setFirstname("Oo");
-//        user.setEmail("111");
-//        user.setPassword("222");
-//        user.setLastname("Bb");
-//        user.setUsername("id" + user.getId());
-//        user.setRole(ERole.ORDINARY);
-
-        newUser.setFirstname(user.getFirstname());
-        newUser.setLastname(user.getLastname());
-        newUser.setUsername(user.getUsername());
-        newUser.setEmail(user.getEmail());
-        newUser.setPassword(passwordEncoder.encode(user.getPassword()));
-        newUser.setRole(ERole.ORDINARY);
-        newUser = userRepository.save(newUser);
         return createTokensForUser(newUser);
 
     }
@@ -67,16 +59,16 @@ public class AuthenticationService {
     }
 
 
-    public JwtTokensDto loginUser(User user) {
+    public JwtTokensDto loginUser(UserAuthorisationDTO userAuthorisationDTO) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                user.getUsername(), user.getPassword()));
-
-
-        User dbUser = userRepository.findByUsername(user.getUsername())
-                .orElseThrow(() -> new NoSuchElementException("User with username: " + user.getUsername() + "not exist"));
-
+                userAuthorisationDTO.getEmail(), userAuthorisationDTO.getPassword()));
+        User dbUser = userRepository.findByEmail(userAuthorisationDTO.getEmail())
+                .orElseThrow(() -> new NoSuchElementException("User with email: " + userAuthorisationDTO.getEmail() + " not exist"));
         return createTokensForUser(dbUser);
     }
+
+
+
 
     public JwtTokensDto refreshToken(String refreshToken) {
         String username = jwtTokenProvider.getUsernameFromJwt(refreshToken);
