@@ -3,11 +3,18 @@ package ru.vsu.cs.chirk.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import jakarta.validation.constraints.NotNull;
 
+
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
-@Table(name = "users")
+@Table(name = "users", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "username"),
+        @UniqueConstraint(columnNames = "email")
+    })
 @Getter @Setter
 public class User {
 
@@ -30,17 +37,27 @@ public class User {
         this.username = "id" + this.id;
     }
 
-    @Column(name = "login")
-    private String login;
+    @Column(name = "email")
+    private String email;
 
     @Column(name = "password")
     private String password;
 
-    @ManyToOne
-    @JoinColumn(name = "role", referencedColumnName = "id", insertable = false, updatable = false)
-    private UserRole role;
+//    @ManyToOne
+//    @JoinColumn(name = "role", referencedColumnName = "id", insertable = false, updatable = false)
+//    private UserRole role;
 
 
+//    @ManyToMany(fetch = FetchType.LAZY)
+//    @JoinTable(name = "user_roles",
+//            joinColumns = @JoinColumn(name = "user_id"),
+//            inverseJoinColumns = @JoinColumn(name = "role_id"))
+//
+//    private Set<UserRole> roles = new HashSet<>();
+
+
+    @NotNull(message = "Enter user role")
+    private ERole role;
 
     @Override
     public boolean equals(Object o) {
@@ -55,16 +72,22 @@ public class User {
         return Objects.hash(id, firstname);
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", username='" + username + '\'' +
-                ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                ", role=" + role +
-                '}';
+    public User(String firstname, String lastname, String username, String email, String password) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
+
+    public User() {
+    }
+
+    public User(String firstname, String lastname, String email, String password, ERole role) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.password = password;
+        this.role = role;
     }
 }
