@@ -52,7 +52,7 @@ public class ChirkService {
         chirk.setVisible(true);
         chirkRepository.save(chirk);
         if (chirk.isOneDay()){
-            scheduler.schedule(new RunnableTask(chirk.getId(), chirkRepository), Instant.now().plusSeconds(6));
+            scheduler.schedule(new RunnableTask(chirk.getId(), chirkRepository), Instant.now().plusSeconds(24*60*60));
         }
     }
 
