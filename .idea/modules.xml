@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/backChirk.iml" filepath="$PROJECT_DIR$/.idea/backChirk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chirk/chirk.iml" filepath="$PROJECT_DIR$/chirk/chirk.iml" />
     </modules>
   </component>
 </project>
