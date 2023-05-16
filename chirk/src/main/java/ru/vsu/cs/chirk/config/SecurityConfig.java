@@ -55,9 +55,10 @@ public class SecurityConfig implements WebMvcConfigurer {
         http.cors().and().csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeHttpRequests()
-//                .requestMatchers("/auth/").permitAll()
-//                .requestMatchers(GET, "/categories/", "/products/", "/v3/api-docs/",
-//                        "/swagger-ui/", "/swagger-ui.html").permitAll()
+                .requestMatchers(GET, "/**").permitAll()
+                .requestMatchers(POST, "/**").permitAll()
+                .requestMatchers(GET, "/categories/", "/products/", "/v3/api-docs/",
+                        "/swagger-ui/", "/swagger-ui.html").permitAll()
                 .requestMatchers(GET, "/user/**").permitAll()
                 .requestMatchers(POST, "/user/**").permitAll()
                 .requestMatchers(GET, "/chirks/**").permitAll()

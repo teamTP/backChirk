@@ -1,4 +1,4 @@
-package ru.vsu.cs.chirk.entity.DTO.request;
+package ru.vsu.cs.chirk.entity.DTO.requestDTO;
 
 import lombok.Getter;
 import ru.vsu.cs.chirk.entity.DTO.ChirkDTO;

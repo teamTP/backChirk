@@ -3,12 +3,11 @@ package ru.vsu.cs.chirk.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.vsu.cs.chirk.entity.DTO.request.FeedRequest;
+import ru.vsu.cs.chirk.entity.DTO.requestDTO.FeedRequest;
 import ru.vsu.cs.chirk.entity.DTO.ChirkFeedDTO;
 import ru.vsu.cs.chirk.repository.UserRepository;
 import ru.vsu.cs.chirk.service.ChirkService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
