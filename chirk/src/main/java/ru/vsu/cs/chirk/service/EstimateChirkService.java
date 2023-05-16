@@ -4,17 +4,13 @@ import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.vsu.cs.chirk.config.RunnableTask;
 import ru.vsu.cs.chirk.entity.Chirk;
+import ru.vsu.cs.chirk.entity.DTO.requestDTO.RequestEstimateDTO;
 import ru.vsu.cs.chirk.entity.EstimateChirk;
 import ru.vsu.cs.chirk.entity.User;
 import ru.vsu.cs.chirk.repository.ChirkRepository;
 import ru.vsu.cs.chirk.repository.EstimateChirkRepository;
 import ru.vsu.cs.chirk.repository.UserRepository;
-
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.util.List;
 import java.util.NoSuchElementException;
 
 @Slf4j
@@ -38,39 +34,36 @@ public class EstimateChirkService {
                 false, false);
         return countOfReaction;
     }
-    public void createEstimate(EstimateChirk estimateChirk) {
-        User user = userRepository.findById(estimateChirk.getUserID().getId())
+    public void createEstimate(RequestEstimateDTO requestEstimateDTO) {
+        User user = userRepository.findById(requestEstimateDTO.getIdUser())
                 .orElseThrow(() -> new NoSuchElementException("Пользователь не существует"));
-        Chirk chirk = chirkRepository.findById(estimateChirk.getChirkID().getId())
+        Chirk chirk = chirkRepository.findById(requestEstimateDTO.getIdChirk())
                 .orElseThrow(() -> new NoSuchElementException("Публикация не существует"));
-
         EstimateChirk estimateChirk1 = estimateChirkRepository.findByChirkIDAndUserID(chirk, user);
         if (estimateChirk1 != null){
             estimateChirk1.setCanceledReaction(false);
-            estimateChirk1.setLiked(estimateChirk.isLiked());
+            estimateChirk1.setLiked(requestEstimateDTO.isLiked());
             estimateChirkRepository.save(estimateChirk1);
         }else {
-            estimateChirk.setUserID(userRepository.findById(estimateChirk.getUserID().getId())
+            EstimateChirk estimateChirk= new EstimateChirk();
+            estimateChirk.setLiked(requestEstimateDTO.isLiked());
+            estimateChirk.setCanceledReaction(false);
+            estimateChirk.setUserID(userRepository.findById(requestEstimateDTO.getIdUser())
                     .orElseThrow(() -> new NoSuchElementException("Пользователь не существует")));
-            estimateChirk.setChirkID(chirkRepository.findById(estimateChirk.getChirkID().getId())
+            estimateChirk.setChirkID(chirkRepository.findById(requestEstimateDTO.getIdChirk())
                     .orElseThrow(() -> new NoSuchElementException("Публикация не существует")));
             estimateChirkRepository.save(estimateChirk);
         }
     }
 
-    public void deleteEstimate(EstimateChirk estimateChirk) {
-        User user = userRepository.findById(estimateChirk.getUserID().getId())
+    public void deleteEstimate(RequestEstimateDTO requestEstimateDTO) {
+        User user = userRepository.findById(requestEstimateDTO.getIdUser())
                 .orElseThrow(() -> new NoSuchElementException("Пользователь не существует"));
-        Chirk chirk = chirkRepository.findById(estimateChirk.getChirkID().getId())
+        Chirk chirk = chirkRepository.findById(requestEstimateDTO.getIdChirk())
                 .orElseThrow(() -> new NoSuchElementException("Публикация не существует"));
-
         EstimateChirk estimateChirk1 = estimateChirkRepository.findByChirkIDAndUserID(chirk, user);
         estimateChirk1.setCanceledReaction(true);
+        System.out.println(estimateChirk1);
         estimateChirkRepository.save(estimateChirk1);
     }
-
-    public EstimateChirk getEstimate(long chirkId){
-        return estimateChirkRepository.findById(chirkId).orElseThrow(()-> new NoSuchElementException("Реакция не существует"));
-    }
-
 }

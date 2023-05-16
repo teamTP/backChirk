@@ -1,10 +1,9 @@
 package ru.vsu.cs.chirk.controller;
 
-import org.checkerframework.checker.units.qual.C;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.vsu.cs.chirk.entity.Chirk;
-import ru.vsu.cs.chirk.repository.ChirkRepository;
+import ru.vsu.cs.chirk.entity.DTO.requestDTO.RequestChirkDTO;
 import ru.vsu.cs.chirk.service.ChirkService;
 @RestController
 @RequestMapping("/chirks")
@@ -13,10 +12,8 @@ public class ChirkController {
     private ChirkService chirkService;
 
     @PostMapping("/add")
-    public Chirk createChirk(@RequestBody Chirk chirk) {
-        chirkService.createChirk(chirk);
-        System.out.println(chirk);
-        return chirk;
+    public void createChirk(@RequestBody RequestChirkDTO requestChirkDTO) {
+        chirkService.createChirk(requestChirkDTO);
     }
     @DeleteMapping("/delete")
     public void deleteChirk(@RequestBody Chirk chirk) {
@@ -27,11 +24,5 @@ public class ChirkController {
     public void updateVisible(@RequestBody Chirk chirk) {
         chirkService.updateVisible(chirk.getId());
         System.out.println(chirk);
-    }
-
-    @GetMapping("/")
-    public Chirk chirk() {
-        return chirkService.getChirk(1);
-        //return "Hello, World!";
     }
 }

@@ -16,8 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import ru.vsu.cs.chirk.security.JwtTokenFilter;
 
-import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.http.HttpMethod.*;
 
 @Configuration
 @EnableWebSecurity
@@ -61,6 +60,12 @@ public class SecurityConfig implements WebMvcConfigurer {
 //                        "/swagger-ui/", "/swagger-ui.html").permitAll()
                 .requestMatchers(GET, "/user/**").permitAll()
                 .requestMatchers(POST, "/user/**").permitAll()
+                .requestMatchers(GET, "/chirks/**").permitAll()
+                .requestMatchers(POST, "/chirks/**").permitAll()
+                .requestMatchers(DELETE, "/chirks/**").permitAll()
+                .requestMatchers(PUT, "/chirks/**").permitAll()
+                .requestMatchers(POST, "/estimate/**").permitAll()
+                .requestMatchers(DELETE, "/estimate/**").permitAll()
 //                .requestMatchers(GET, "/orders/").hasAnyAuthority(USER)
 
 //                .requestMatchers(POST, "/categories/**", "/products").hasAnyAuthority(ADMIN)

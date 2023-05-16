@@ -17,4 +17,5 @@ public interface EstimateChirkRepository extends JpaRepository<EstimateChirk, Lo
 
 
     EstimateChirk findByChirkIDAndUserID(Chirk chirk, User user);
+    void deleteEstimateChirkByChirkID (Chirk chirk);
 }
