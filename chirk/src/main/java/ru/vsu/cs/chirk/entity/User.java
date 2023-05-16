@@ -1,9 +1,9 @@
 package ru.vsu.cs.chirk.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
-import jakarta.validation.constraints.NotNull;
 
 
 import java.util.HashSet;
@@ -48,6 +48,7 @@ public class User {
 //    private UserRole role;
 
 
+    //TODO idIcon добавить
 //    @ManyToMany(fetch = FetchType.LAZY)
 //    @JoinTable(name = "user_roles",
 //            joinColumns = @JoinColumn(name = "user_id"),

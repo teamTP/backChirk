@@ -4,17 +4,26 @@ package ru.vsu.cs.chirk.service;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.stereotype.Component;
 import ru.vsu.cs.chirk.config.RunnableTask;
 import ru.vsu.cs.chirk.entity.Chirk;
 import ru.vsu.cs.chirk.entity.DTO.ChirkFeedDTO;
 import ru.vsu.cs.chirk.entity.DTO.requestDTO.RequestChirkDTO;
+import ru.vsu.cs.chirk.entity.EstimateChirk;
+import ru.vsu.cs.chirk.entity.Reaction;
+import ru.vsu.cs.chirk.entity.User;
 import ru.vsu.cs.chirk.repository.ChirkRepository;
 import ru.vsu.cs.chirk.repository.EstimateChirkRepository;
 import ru.vsu.cs.chirk.repository.UserRepository;
+import org.springframework.data.domain.Pageable;
+
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Slf4j
@@ -51,6 +60,12 @@ public class ChirkService {
         return chirkRepository.findById(chirkId).orElseThrow(()-> new NoSuchElementException("Публикация не существует"));
     }
 
+    public List<Chirk> getPage(int page){
+        Pageable pageable = PageRequest.of(page, 10);
+        Page<Chirk> chirkPage = chirkRepository.findAll(pageable);
+        return chirkPage.stream().toList();
+    }
+
     public void deleteChirk(Long chirkId) {
         Chirk chirk = chirkRepository.findById(chirkId)
                 .orElseThrow(() -> new NoSuchElementException("Публикация не существует"));
@@ -70,11 +85,35 @@ public class ChirkService {
         }
     }
 
-    public ChirkFeedDTO createChirkForFeed(Chirk chirk){
+    public ChirkFeedDTO createChirkForFeed(Chirk chirk, Reaction reaction){
         int[] count = estimateChirkService.getCountLikeAndDis(chirk);
-        ChirkFeedDTO chirkFeedDTO = new ChirkFeedDTO(chirk.getId(), chirk.getText(), chirk.getDate(),
-                chirk.getUser().getFirstname(), chirk.getUser().getLastname(), count[0], count[1]);
 
-        return chirkFeedDTO;
+        return new ChirkFeedDTO(chirk.getId(), chirk.getText(), chirk.getDate(),
+                chirk.getUser().getFirstname(), chirk.getUser().getLastname(), count[0], count[1], reaction);
+    }
+
+    public List<ChirkFeedDTO> createListChirkFeed(int page, long userId){
+        List<Chirk> chirkList = getPage(page);
+        User user = userRepository.findById(userId).get();
+        List<ChirkFeedDTO> chirkFeedDTOList = new ArrayList<>();
+        for(Chirk chirk : chirkList){
+            EstimateChirk estimateChirk = estimateChirkRepository.findByUserIDAndChirkID(user, chirk);
+            if(estimateChirk != null && !estimateChirk.isCanceledReaction())
+                if(estimateChirk.isLiked())
+                    chirkFeedDTOList.add(createChirkForFeed(chirk, Reaction.LIKE));
+                else
+                    chirkFeedDTOList.add(createChirkForFeed(chirk, Reaction.DISLIKE));
+            else
+                chirkFeedDTOList.add(createChirkForFeed(chirk, Reaction.NON));
+        }
+        return chirkFeedDTOList;
+    }
+    public List<ChirkFeedDTO> createListChirkFeed(int page){
+        List<Chirk> chirkList = getPage(page);
+        List<ChirkFeedDTO> chirkFeedDTOList = new ArrayList<>();
+        for(Chirk chirk : chirkList){
+            chirkFeedDTOList.add(createChirkForFeed(chirk, Reaction.NON));
+        }
+        return chirkFeedDTOList;
     }
 }

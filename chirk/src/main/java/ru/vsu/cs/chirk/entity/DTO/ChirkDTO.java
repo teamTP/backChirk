@@ -1,6 +1,7 @@
 package ru.vsu.cs.chirk.entity.DTO;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

@@ -12,7 +12,7 @@ import java.util.List;
 public interface EstimateChirkRepository extends JpaRepository<EstimateChirk, Long> {
 
     List<EstimateChirkRepository> findByChirkID(Chirk chirk);
-
+    EstimateChirk findByUserIDAndChirkID(User user, Chirk chirk);
     int countByChirkIDAndIsLikedAndIsCanceledReaction(Chirk chirk, boolean isLiked, boolean isCanceledReaction);
 
 

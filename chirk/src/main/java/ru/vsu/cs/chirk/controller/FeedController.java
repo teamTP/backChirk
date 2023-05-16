@@ -3,8 +3,9 @@ package ru.vsu.cs.chirk.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.vsu.cs.chirk.entity.Chirk;
+import ru.vsu.cs.chirk.entity.DTO.request.FeedRequest;
 import ru.vsu.cs.chirk.entity.DTO.ChirkFeedDTO;
+import ru.vsu.cs.chirk.repository.UserRepository;
 import ru.vsu.cs.chirk.service.ChirkService;
 
 import java.util.ArrayList;
@@ -17,21 +18,40 @@ public class FeedController {
     @Autowired
     private ChirkService chirkService;
 
-    @GetMapping("/")
-    //@RequestBody Chirk chirk
-    public List<ChirkFeedDTO> createChirk() {
-        List<ChirkFeedDTO> chirkFeedDTOList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+    @Autowired
+    private UserRepository userRepository;
 
-            Chirk chirk = chirkService.getChirk(1);
-            var chirkFeedDTO = chirkService.createChirkForFeed(chirk);
-            System.out.println("----------------------------");
-            chirkFeedDTOList.add(chirkFeedDTO);
-            System.out.println(chirkFeedDTO);
-            System.out.println("----------------------------");
+//    @GetMapping
+//    //@RequestBody Chirk chirk
+//    public ChirkFeedDTO createChirk() {
+//        for (int i = 0; i < 10; i++) {
+//
+//            Chirk chirk = chirkService.getChirk(1);
+//            var chirkFeedDTO = chirkService.createChirkForFeed(chirk);
+//            System.out.println("----------------------------");
+//            System.out.println(chirkFeedDTO);
+//            System.out.println("----------------------------");
+//
+//        }
+////        System.out.println(chirk);
+//        return null;
+//    }
 
-        }
-//        System.out.println(chirk);
+//    @GetMapping
+//    public List<ChirkFeedDTO> feed(){
+//        //TODO доставать id из токена @Pekanov
+//        List<ChirkFeedDTO> chirkFeedDTOList = chirkService.createListChirkFeed(0, 1L);
+//        System.out.println(chirkFeedDTOList);
+//        return chirkFeedDTOList;
+//    }
+
+    @GetMapping
+    public List<ChirkFeedDTO> feed(@RequestBody FeedRequest feedRequest){
+        //TODO доставать id из токена @Pekanov
+//        System.out.println(feedRequest);
+
+        List<ChirkFeedDTO> chirkFeedDTOList = chirkService.createListChirkFeed(feedRequest.getPage(), feedRequest.getUserId());
+        System.out.println(chirkFeedDTOList);
         return chirkFeedDTOList;
     }
 }
