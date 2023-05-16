@@ -1,5 +1,4 @@
 package ru.vsu.cs.chirk.controller;
-
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,10 +18,10 @@ public class ChirkController {
     }
     @DeleteMapping("/delete")
     public void deleteChirk(@RequestBody RequestChirkIdDTO requestChirkIdDTO) {
-        chirkService.deleteChirk(requestChirkIdDTO.getIdChirk());
+        chirkService.deleteChirk(requestChirkIdDTO.getId());
     }
     @PutMapping("/updateVisible")
     public void updateVisible(@RequestBody RequestChirkIdDTO requestChirkIdDTO) {
-        chirkService.updateVisible(requestChirkIdDTO.getIdChirk());
+        chirkService.updateVisible(requestChirkIdDTO.getId());
     }
 }
