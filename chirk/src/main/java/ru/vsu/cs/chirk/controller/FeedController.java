@@ -14,6 +14,8 @@ import java.util.List;
 @RequestMapping("/feed")
 public class FeedController {
 
+    //TODO добавить токены в параметры
+
     @Autowired
     private ChirkService chirkService;
 
@@ -53,4 +55,7 @@ public class FeedController {
         System.out.println(chirkFeedDTOList);
         return chirkFeedDTOList;
     }
+
+
+
 }
