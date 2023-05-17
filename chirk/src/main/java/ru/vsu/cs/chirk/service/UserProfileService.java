@@ -22,6 +22,8 @@ public class UserProfileService {
 
     public List<Chirk> getAllUsersPosts(Long userID){
 
+        //TODO нужно что бы возвращал list<ChirkFeedDTO>
+
         User user = userRepository.findById(userID)
                 .orElseThrow(() -> new NoSuchElementException("User with id: " + userID + "not exist"));
         return chirkRepository.findAllByUser(user);
