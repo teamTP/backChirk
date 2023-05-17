@@ -19,6 +19,6 @@ public interface EstimateChirkRepository extends JpaRepository<EstimateChirk, Lo
     EstimateChirk findByChirkIDAndUserID(Chirk chirk, User user);
     void deleteEstimateChirkByChirkID (Chirk chirk);
 
-    List<Chirk> findAllByLikedIsAndCanceledReaction(boolean isLiked, boolean isCanceledReaction);
+    List<Chirk> findAllByIsLikedAndIsCanceledReaction(boolean isLiked, boolean isCanceledReaction);
 
 }

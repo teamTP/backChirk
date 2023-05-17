@@ -21,13 +21,14 @@ public class UserProfileService {
     private final EstimateChirkService estimateChirkService;
 
     public List<Chirk> getAllUsersPosts(Long userID){
-//        User user = userRepository.findById(userID)
-//                .orElseThrow(() -> new NoSuchElementException("User with id: " + userID + "not exist"));
-        return chirkRepository.findAllByUserID(userID);
+
+        User user = userRepository.findById(userID)
+                .orElseThrow(() -> new NoSuchElementException("User with id: " + userID + "not exist"));
+        return chirkRepository.findAllByUser(user);
     }
 
     public List<Chirk> getLikedOrDislikedUsersPosts(Long userID, boolean isLiked){
-        return estimateChirkService.estimateChirkRepository.findAllByLikedIsAndCanceledReaction(isLiked, false);
+        return estimateChirkService.estimateChirkRepository.findAllByIsLikedAndIsCanceledReaction(isLiked, false);
     }
 
     public void updateUserInfo(Long userId, UserInfoUpdateDTO userInfoUpdateDTO){
