@@ -48,7 +48,10 @@ public class User {
 //    private UserRole role;
 
 
-    //TODO idIcon добавить
+
+    @Column(name = "icon_id")
+    private int iconId = (int)(Math.random()*5);
+
 //    @ManyToMany(fetch = FetchType.LAZY)
 //    @JoinTable(name = "user_roles",
 //            joinColumns = @JoinColumn(name = "user_id"),

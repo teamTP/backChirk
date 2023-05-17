@@ -18,6 +18,7 @@ public class ChirkFeedDTO {
     private LocalDateTime createdDate;
     private String userFirstname;
     private String userLastname;
+    private int userIconId;
     private int countLike;
     private int countDislike;
     private Reaction reaction;
@@ -30,6 +31,7 @@ public class ChirkFeedDTO {
                 ", createdDate=" + createdDate +
                 ", userFirstname='" + userFirstname + '\'' +
                 ", userLastname='" + userLastname + '\'' +
+                ", userIconId=" + userIconId +
                 ", countLike=" + countLike +
                 ", countDislike=" + countDislike +
                 ", reaction=" + reaction +
