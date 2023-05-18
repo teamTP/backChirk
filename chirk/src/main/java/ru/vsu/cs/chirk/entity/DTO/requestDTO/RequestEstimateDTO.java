@@ -7,7 +7,7 @@ import lombok.Getter;
 public class RequestEstimateDTO {
     private long idUser;
     private long idChirk;
-    private boolean isLiked;
+    private Boolean isLiked;
 
     @Override
     public String toString() {

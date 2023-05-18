@@ -40,13 +40,16 @@ public class EstimateChirkService {
         Chirk chirk = chirkRepository.findById(requestEstimateDTO.getIdChirk())
                 .orElseThrow(() -> new NoSuchElementException("Публикация не существует"));
         EstimateChirk estimateChirk1 = estimateChirkRepository.findByChirkIDAndUserID(chirk, user);
-        if (estimateChirk1 != null){
+        if (requestEstimateDTO.getIsLiked() == null){
+            estimateChirk1.setCanceledReaction(true);
+            estimateChirkRepository.save(estimateChirk1);
+        } else if (estimateChirk1 != null){
             estimateChirk1.setCanceledReaction(false);
-            estimateChirk1.setLiked(requestEstimateDTO.isLiked());
+            estimateChirk1.setLiked(requestEstimateDTO.getIsLiked());
             estimateChirkRepository.save(estimateChirk1);
         }else {
             EstimateChirk estimateChirk= new EstimateChirk();
-            estimateChirk.setLiked(requestEstimateDTO.isLiked());
+            estimateChirk.setLiked(requestEstimateDTO.getIsLiked());
             estimateChirk.setCanceledReaction(false);
             estimateChirk.setUserID(userRepository.findById(requestEstimateDTO.getIdUser())
                     .orElseThrow(() -> new NoSuchElementException("Пользователь не существует")));
@@ -56,14 +59,14 @@ public class EstimateChirkService {
         }
     }
 
-    public void deleteEstimate(RequestEstimateDTO requestEstimateDTO) {
-        User user = userRepository.findById(requestEstimateDTO.getIdUser())
-                .orElseThrow(() -> new NoSuchElementException("Пользователь не существует"));
-        Chirk chirk = chirkRepository.findById(requestEstimateDTO.getIdChirk())
-                .orElseThrow(() -> new NoSuchElementException("Публикация не существует"));
-        EstimateChirk estimateChirk1 = estimateChirkRepository.findByChirkIDAndUserID(chirk, user);
-        estimateChirk1.setCanceledReaction(true);
-        System.out.println(estimateChirk1);
-        estimateChirkRepository.save(estimateChirk1);
-    }
+//    public void deleteEstimate(RequestEstimateDTO requestEstimateDTO) {
+//        User user = userRepository.findById(requestEstimateDTO.getIdUser())
+//                .orElseThrow(() -> new NoSuchElementException("Пользователь не существует"));
+//        Chirk chirk = chirkRepository.findById(requestEstimateDTO.getIdChirk())
+//                .orElseThrow(() -> new NoSuchElementException("Публикация не существует"));
+//        EstimateChirk estimateChirk1 = estimateChirkRepository.findByChirkIDAndUserID(chirk, user);
+//        estimateChirk1.setCanceledReaction(true);
+//        System.out.println(estimateChirk1);
+//        estimateChirkRepository.save(estimateChirk1);
+//    }
 }
