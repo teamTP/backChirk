@@ -85,11 +85,21 @@ public class ChirkService {
         }
     }
 
+
     public ChirkFeedDTO createChirkForFeed(Chirk chirk, Reaction reaction){
         int[] count = estimateChirkService.getCountLikeAndDis(chirk);
 
-        return new ChirkFeedDTO(chirk.getId(), chirk.getText(), chirk.getDate(),
-                chirk.getUser().getFirstname(), chirk.getUser().getLastname(), count[0], count[1], reaction);
+        return new ChirkFeedDTO(
+                chirk.getId(),
+                chirk.getText(),
+                chirk.getDate(),
+                chirk.getUser().getFirstname(),
+                chirk.getUser().getLastname(),
+                chirk.getUser().getIconId(),
+                count[0],
+                count[1],
+                reaction
+        );
     }
 
     public List<ChirkFeedDTO> createListChirkFeed(int page, long userId){
