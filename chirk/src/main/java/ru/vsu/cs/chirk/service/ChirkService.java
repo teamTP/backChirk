@@ -4,6 +4,7 @@ package ru.vsu.cs.chirk.service;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.checkerframework.checker.units.qual.C;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.scheduling.TaskScheduler;
@@ -65,6 +66,28 @@ public class ChirkService {
         Page<Chirk> chirkPage = chirkRepository.findAll(pageable);
         return chirkPage.stream().toList();
     }
+//    public List<Chirk> getLikedOrDislikedUsersPosts(Long userID, boolean isLiked){
+//        return estimateChirkService.estimateChirkRepository.findAllByIsLikedAndIsCanceledReaction(isLiked, false);
+//    }
+    public List<Chirk> getPage(int page, User user){
+        Pageable pageable = PageRequest.of(page, 10);
+        Page<Chirk> chirkPage = chirkRepository.findAllByUser(user, pageable);
+        return chirkPage.stream().toList();
+    }
+    public List<Chirk> getPage(int page, User user, boolean isLiked){
+        Pageable pageable = PageRequest.of(page, 10);
+        Page<EstimateChirk> estimateChirkPage = estimateChirkRepository.findAllByUserIDAndIsCanceledReactionAndIsLiked(
+                                                                                            user,
+                                                                                            false,
+                                                                                            isLiked,
+                                                                                            pageable);
+        List<EstimateChirk> estimateChirkList = estimateChirkPage.stream().toList();
+        List<Chirk> chirkList = new ArrayList<>();
+        for(EstimateChirk e : estimateChirkList){
+            chirkList.add(e.getChirkID());
+        }
+        return chirkList;
+    }
 
     public void deleteChirk(Long chirkId) {
         Chirk chirk = chirkRepository.findById(chirkId)
@@ -104,7 +127,28 @@ public class ChirkService {
 
     public List<ChirkFeedDTO> createListChirkFeed(int page, long userId){
         List<Chirk> chirkList = getPage(page);
-        User user = userRepository.findById(userId).get();
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new NoSuchElementException("User with id: " + userId + "not exist"));
+        return createListChirkFeedDTO(user, chirkList);
+    }
+
+    public List<ChirkFeedDTO> createListChirkInProfile(int page, User user){
+        List<Chirk> chirkList = getPage(page, user);
+        return createListChirkFeedDTO(user, chirkList);
+    }
+
+    public List<ChirkFeedDTO> createListLikedUserChirks(int page, User user){
+        List<Chirk> chirkList = getPage(page, user, true);
+        return createListChirkFeedDTO(user, chirkList);
+    }
+
+    public List<ChirkFeedDTO> createListDislikedUserChirks(int page, User user){
+        List<Chirk> chirkList = getPage(page, user, false);
+        return createListChirkFeedDTO(user, chirkList);
+    }
+
+
+    private List<ChirkFeedDTO> createListChirkFeedDTO(User user, List<Chirk> chirkList){
         List<ChirkFeedDTO> chirkFeedDTOList = new ArrayList<>();
         for(Chirk chirk : chirkList){
             EstimateChirk estimateChirk = estimateChirkRepository.findByUserIDAndChirkID(user, chirk);
@@ -118,6 +162,12 @@ public class ChirkService {
         }
         return chirkFeedDTOList;
     }
+
+
+
+
+
+
     public List<ChirkFeedDTO> createListChirkFeed(int page){
         List<Chirk> chirkList = getPage(page);
         List<ChirkFeedDTO> chirkFeedDTOList = new ArrayList<>();

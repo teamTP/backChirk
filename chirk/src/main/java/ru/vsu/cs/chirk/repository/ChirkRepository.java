@@ -17,5 +17,8 @@ public interface ChirkRepository extends JpaRepository<Chirk, Long> {
     Page<Chirk> findAll(@NonNull Pageable pageable);
 
     List<Chirk> findAllByUser(User user);
-    
+
+    @NonNull
+    Page<Chirk> findAllByUser(User user, @NonNull Pageable pageable);
+
 }

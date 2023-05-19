@@ -28,8 +28,8 @@ public class EstimateChirkController {
     public void createEstimate(@RequestBody RequestEstimateDTO requestEstimateDTO) {
         estimateChirkService.createEstimate(requestEstimateDTO);
     }
-    @DeleteMapping("/delete")
-    public void deleteEstimate(@RequestBody RequestEstimateDTO requestEstimateDTO) {
-        estimateChirkService.deleteEstimate(requestEstimateDTO);
-    }
+//    @DeleteMapping("/delete")
+//    public void deleteEstimate(@RequestBody RequestEstimateDTO requestEstimateDTO) {
+//        estimateChirkService.deleteEstimate(requestEstimateDTO);
+//    }
 }
