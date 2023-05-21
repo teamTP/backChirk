@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import ru.vsu.cs.chirk.entity.Chirk;
 import ru.vsu.cs.chirk.entity.DTO.ChirkFeedDTO;
 import ru.vsu.cs.chirk.entity.DTO.UserInfoUpdateDTO;
+import ru.vsu.cs.chirk.entity.DTO.UserProfileDTO;
 import ru.vsu.cs.chirk.entity.User;
 import ru.vsu.cs.chirk.repository.ChirkRepository;
 import ru.vsu.cs.chirk.repository.UserRepository;
@@ -30,6 +31,17 @@ public class UserProfileService {
                 .orElseThrow(() -> new NoSuchElementException("User with id: " + userID + "not exist"));
 //        List<Chirk> chirkList = chirkRepository.findAllByUser(user);
         return chirkService.createListChirkInProfile(page, user);
+    }
+
+    public UserProfileDTO getUserProfileDTO(Long userID){
+        User user = userRepository.findById(userID)
+                .orElseThrow(() -> new NoSuchElementException("User with id: " + userID + "not exist"));
+        return new UserProfileDTO(
+                user.getFirstname(),
+                user.getLastname(),
+                user.getEmail(),
+                user.getIconId()
+        );
     }
 
     public List<ChirkFeedDTO> getLikedUsersPosts(Long userID, int page){
