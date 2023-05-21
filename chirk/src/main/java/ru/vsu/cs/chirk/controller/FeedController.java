@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.*;
 import ru.vsu.cs.chirk.entity.DTO.requestDTO.FeedRequest;
 import ru.vsu.cs.chirk.entity.DTO.ChirkFeedDTO;
 import ru.vsu.cs.chirk.repository.UserRepository;
+import ru.vsu.cs.chirk.security.JwtTokenProvider;
 import ru.vsu.cs.chirk.service.ChirkService;
+import ru.vsu.cs.chirk.service.UserProfileService;
 
 import java.util.List;
 
@@ -15,6 +17,11 @@ import java.util.List;
 public class FeedController {
 
     //TODO добавить токены в параметры
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
+
+    @Autowired
+    private UserProfileService userProfileService;
 
     @Autowired
     private ChirkService chirkService;
@@ -47,13 +54,20 @@ public class FeedController {
 //    }
 
     @GetMapping
-    public List<ChirkFeedDTO> feed(@RequestBody FeedRequest feedRequest){
-        //TODO доставать id из токена @Pekanov
-//        System.out.println(feedRequest);
-
-        List<ChirkFeedDTO> chirkFeedDTOList = chirkService.createListChirkFeed(feedRequest.getPage(), feedRequest.getUserId());
-        System.out.println(chirkFeedDTOList);
-        return chirkFeedDTOList;
+    public List<ChirkFeedDTO> feed(@RequestHeader(name = "Authorization", required = false) String authorizationHeader, int page){
+        if (authorizationHeader == null) {
+            return chirkService.createListChirkFeedWithoutUser(page);
+        } else {
+            String accessToken = extractAccessToken(authorizationHeader);
+            Long userId = jwtTokenProvider.getIdFromJwt(accessToken);
+            return chirkService.createListChirkFeed(page, userId);
+        }
+    }
+    private String extractAccessToken(String authorizationHeader) {
+        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+            return authorizationHeader.substring(7);
+        }
+        throw new IllegalArgumentException("Invalid Authorization header");
     }
 
 

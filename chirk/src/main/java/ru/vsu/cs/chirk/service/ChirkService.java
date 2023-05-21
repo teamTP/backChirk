@@ -131,6 +131,10 @@ public class ChirkService {
                 .orElseThrow(() -> new NoSuchElementException("User with id: " + userId + "not exist"));
         return createListChirkFeedDTO(user, chirkList);
     }
+    public List<ChirkFeedDTO> createListChirkFeedWithoutUser(int page){
+        List<Chirk> chirkList = getPage(page);
+        return createListChirkFeedDTOWithoutUser(chirkList);
+    }
 
     public List<ChirkFeedDTO> createListChirkInProfile(int page, User user){
         List<Chirk> chirkList = getPage(page, user);
@@ -158,6 +162,13 @@ public class ChirkService {
                 else
                     chirkFeedDTOList.add(createChirkForFeed(chirk, Reaction.DISLIKE));
             else
+                chirkFeedDTOList.add(createChirkForFeed(chirk, Reaction.NON));
+        }
+        return chirkFeedDTOList;
+    }
+    private List<ChirkFeedDTO> createListChirkFeedDTOWithoutUser(List<Chirk> chirkList){
+        List<ChirkFeedDTO> chirkFeedDTOList = new ArrayList<>();
+        for(Chirk chirk : chirkList){
                 chirkFeedDTOList.add(createChirkForFeed(chirk, Reaction.NON));
         }
         return chirkFeedDTOList;
