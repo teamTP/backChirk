@@ -24,13 +24,21 @@ public class UserProfileService {
     private final ChirkService chirkService;
 
     public List<ChirkFeedDTO> getUsersPosts(Long userID, int page){
-
-        //TODO нужно что бы возвращал list<ChirkFeedDTO>
-
         User user = userRepository.findById(userID)
                 .orElseThrow(() -> new NoSuchElementException("User with id: " + userID + "not exist"));
-//        List<Chirk> chirkList = chirkRepository.findAllByUser(user);
         return chirkService.createListChirkInProfile(page, user);
+    }
+
+    public List<ChirkFeedDTO> getLikedUsersPosts(Long userID, int page){
+        User user = userRepository.findById(userID)
+                .orElseThrow(() -> new NoSuchElementException("User with id: " + userID + "not exist"));
+        return chirkService.createListLikedUserChirks(page, user);
+    }
+
+    public List<ChirkFeedDTO> getDislikedUsersPosts(Long userID, int page){
+        User user = userRepository.findById(userID)
+                .orElseThrow(() -> new NoSuchElementException("User with id: " + userID + "not exist"));
+        return chirkService.createListDislikedUserChirks(page, user);
     }
 
     public UserProfileDTO getUserProfileDTO(Long userID){
@@ -43,51 +51,17 @@ public class UserProfileService {
                 user.getIconId()
         );
     }
-
-    public List<ChirkFeedDTO> getLikedUsersPosts(Long userID, int page){
-
-        //TODO нужно что бы возвращал list<ChirkFeedDTO>
-
-        User user = userRepository.findById(userID)
-                .orElseThrow(() -> new NoSuchElementException("User with id: " + userID + "not exist"));
-//        List<Chirk> chirkList = chirkRepository.findAllByUser(user);
-        return chirkService.createListLikedUserChirks(page, user);
-    }
-
-    public List<ChirkFeedDTO> getDislikedUsersPosts(Long userID, int page){
-
-        //TODO нужно что бы возвращал list<ChirkFeedDTO>
-
-        User user = userRepository.findById(userID)
-                .orElseThrow(() -> new NoSuchElementException("User with id: " + userID + "not exist"));
-//        List<Chirk> chirkList = chirkRepository.findAllByUser(user);
-        return chirkService.createListDislikedUserChirks(page, user);
-    }
-
-
-
-//    public List<Chirk> getLikedOrDislikedUsersPosts(Long userID, boolean isLiked){
-//        return estimateChirkService.estimateChirkRepository.findAllByIsLikedAndIsCanceledReaction(isLiked, false);
-//    }
-
     public void updateUserInfo(Long userId, UserInfoUpdateDTO userInfoUpdateDTO){
-
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NoSuchElementException("User with ID: " + userId + " not found"));
-
         user.setFirstname(userInfoUpdateDTO.getFirstname());
         user.setLastname(userInfoUpdateDTO.getLastname());
-
-        User updatedUser = userRepository.save(user);
-
+        userRepository.save(user);
     }
 
-
     public UserInfoUpdateDTO getUserInfoUpdateDTO(Long userId){
-
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NoSuchElementException("User with ID: " + userId + " not found"));
-
         return new UserInfoUpdateDTO(user.getFirstname(), user.getLastname());
 
     }

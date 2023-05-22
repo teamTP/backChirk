@@ -49,13 +49,8 @@ public class UserController {
 
 
     @PostMapping(value = "/authorisation", produces = MediaType.APPLICATION_JSON_VALUE)
-    //    public ResponseEntity<JwtTokensDto> authorise(@RequestBody UserAuthorisationDTO userAuthorisationDTO) {
-
     public ResponseEntity<JwtTokensDto> authorise (@RequestBody UserAuthorisationDTO userAuthorisationDTO) {
-//        UserAuthorisationDTO userAuthorisationDTO = new UserAuthorisationDTO("AdminDu@Good", "000000" );
-
         JwtTokensDto token = authenticationService.loginUser(userAuthorisationDTO);
-
         for (int i = 0; i < 10; i++) {
             System.out.println("authorise is OK");
         }

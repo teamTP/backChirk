@@ -67,6 +67,9 @@ public class SecurityConfig implements WebMvcConfigurer {
                 .requestMatchers(PUT, "/chirks/**").permitAll()
                 .requestMatchers(POST, "/estimate/**").permitAll()
                 .requestMatchers(DELETE, "/estimate/**").permitAll()
+                .requestMatchers(GET, "/profile/**").permitAll()
+                .requestMatchers(POST, "/profile/**").permitAll()
+                .requestMatchers(PUT, "/profile/**").permitAll()
 //                .requestMatchers(GET, "/orders/").hasAnyAuthority(USER)
 
 //                .requestMatchers(POST, "/categories/**", "/products").hasAnyAuthority(ADMIN)
