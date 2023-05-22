@@ -1,8 +1,10 @@
 package ru.vsu.cs.chirk.entity.DTO.requestDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 @AllArgsConstructor
 public class RequestEstimateDTO {
     private long idUser;

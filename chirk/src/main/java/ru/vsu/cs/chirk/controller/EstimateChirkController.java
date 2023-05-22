@@ -3,11 +3,14 @@ package ru.vsu.cs.chirk.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.vsu.cs.chirk.entity.DTO.requestDTO.RequestEstimateDTO;
+import ru.vsu.cs.chirk.security.JwtTokenProvider;
 import ru.vsu.cs.chirk.service.EstimateChirkService;
 
 @RestController
 @RequestMapping("/estimate")
 public class EstimateChirkController {
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
     @Autowired
     private EstimateChirkService estimateChirkService;
 
@@ -25,11 +28,20 @@ public class EstimateChirkController {
      */
 
     @PostMapping("/add")
-    public void createEstimate(@RequestBody RequestEstimateDTO requestEstimateDTO) {
+    public void createEstimate(@RequestHeader(name = "Authorization") String authorizationHeader, @RequestBody RequestEstimateDTO requestEstimateDTO) {
+        String accessToken = extractAccessToken(authorizationHeader);
+        Long userId = jwtTokenProvider.getIdFromJwt(accessToken);
+        requestEstimateDTO.setIdUser(userId);
         estimateChirkService.createEstimate(requestEstimateDTO);
     }
 //    @DeleteMapping("/delete")
 //    public void deleteEstimate(@RequestBody RequestEstimateDTO requestEstimateDTO) {
 //        estimateChirkService.deleteEstimate(requestEstimateDTO);
 //    }
+private String extractAccessToken(String authorizationHeader) {
+    if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+        return authorizationHeader.substring(7);
+    }
+    throw new IllegalArgumentException("Invalid Authorization header");
+}
 }
