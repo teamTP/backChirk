@@ -34,8 +34,8 @@ public class EstimateChirkService {
                 false, false);
         return countOfReaction;
     }
-    public void createEstimate(RequestEstimateDTO requestEstimateDTO) {
-        User user = userRepository.findById(requestEstimateDTO.getIdUser())
+    public void createEstimate(RequestEstimateDTO requestEstimateDTO, Long userId) {
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NoSuchElementException("Пользователь не существует"));
         Chirk chirk = chirkRepository.findById(requestEstimateDTO.getIdChirk())
                 .orElseThrow(() -> new NoSuchElementException("Публикация не существует"));
@@ -51,7 +51,7 @@ public class EstimateChirkService {
             EstimateChirk estimateChirk= new EstimateChirk();
             estimateChirk.setLiked(requestEstimateDTO.getIsLiked());
             estimateChirk.setCanceledReaction(false);
-            estimateChirk.setUserID(userRepository.findById(requestEstimateDTO.getIdUser())
+            estimateChirk.setUserID(userRepository.findById(userId)
                     .orElseThrow(() -> new NoSuchElementException("Пользователь не существует")));
             estimateChirk.setChirkID(chirkRepository.findById(requestEstimateDTO.getIdChirk())
                     .orElseThrow(() -> new NoSuchElementException("Публикация не существует")));
