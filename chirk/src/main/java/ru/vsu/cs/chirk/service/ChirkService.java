@@ -23,6 +23,8 @@ import org.springframework.data.domain.Pageable;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -43,13 +45,21 @@ public class ChirkService {
 
     //??????????
 
-    public void createChirk(RequestChirkDTO requestChirkDTO) {
+    public void createChirk(RequestChirkDTO requestChirkDTO, Long userId) {
         Chirk chirk = new Chirk();
-        chirk.setUser(userRepository.findById(requestChirkDTO.getIdUser())
+        chirk.setUser(userRepository.findById(userId)
                 .orElseThrow(() -> new NoSuchElementException("Пользователь не существует")));
         chirk.setText(requestChirkDTO.getText());
         chirk.setOneDay(requestChirkDTO.isOneDay());
-        chirk.setDate(LocalDateTime.now());
+        LocalDateTime now = LocalDateTime.now();
+        ZoneId zone = ZoneId.of("UTC");
+          ZonedDateTime zdt = now.atZone(zone);
+        chirk.setDate(zdt);
+        //chirk.setDate(LocalDateTime.now());
+//        LocalDateTime now = LocalDateTime.now();
+//        ZoneId zone = ZoneId.of("UTC");
+//        ZonedDateTime zdt = now.atZone(zone);
+//        chirk.setDate(zdt);
         chirk.setVisible(true);
         chirkRepository.save(chirk);
         if (chirk.isOneDay()){

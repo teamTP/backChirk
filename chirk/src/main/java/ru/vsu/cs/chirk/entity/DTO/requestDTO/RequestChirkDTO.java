@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class RequestChirkDTO {
-        private long idUser;
+        //private long idUser;
         private String text;
         private boolean isOneDay;
     }

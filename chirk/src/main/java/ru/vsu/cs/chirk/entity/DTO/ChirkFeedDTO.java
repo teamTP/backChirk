@@ -7,6 +7,7 @@ import lombok.Setter;
 import ru.vsu.cs.chirk.entity.Reaction;
 
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @AllArgsConstructor
 @Getter @Setter
@@ -15,7 +16,7 @@ public class ChirkFeedDTO {
 
     private long chirkId;
     private String text;
-    private LocalDateTime createdDate;
+    private ZonedDateTime createdDate;
     private String userFirstname;
     private String userLastname;
     private int userIconId;

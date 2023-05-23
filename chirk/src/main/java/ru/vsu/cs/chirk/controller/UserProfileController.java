@@ -66,18 +66,18 @@ public class UserProfileController {
 
 
 
-        @PostMapping("/add")
-        public void createChirk(@RequestBody RequestChirkDTO requestChirkDTO) {
-            chirkService.createChirk(requestChirkDTO);
-        }
-        @DeleteMapping("/delete")
-        public void deleteChirk(@RequestBody RequestChirkIdDTO requestChirkIdDTO) {
-            chirkService.deleteChirk(requestChirkIdDTO.getId());
-        }
-        @PutMapping("/updateVisible")
-        public void updateVisible(@RequestBody RequestChirkIdDTO requestChirkIdDTO) {
-            chirkService.updateVisible(requestChirkIdDTO.getId());
-        }
+//        @PostMapping("/add")
+//        public void createChirk(@RequestBody RequestChirkDTO requestChirkDTO) {
+//            chirkService.createChirk(requestChirkDTO);
+//        }
+//        @DeleteMapping("/delete")
+//        public void deleteChirk(@RequestBody RequestChirkIdDTO requestChirkIdDTO) {
+//            chirkService.deleteChirk(requestChirkIdDTO.getId());
+//        }
+//        @PutMapping("/updateVisible")
+//        public void updateVisible(@RequestBody RequestChirkIdDTO requestChirkIdDTO) {
+//            chirkService.updateVisible(requestChirkIdDTO.getId());
+//        }
 
 
 

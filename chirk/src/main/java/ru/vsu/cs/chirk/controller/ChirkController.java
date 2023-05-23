@@ -19,8 +19,8 @@ public class ChirkController {
     public void createChirk(@RequestHeader(name = "Authorization") String authorizationHeader,@RequestBody RequestChirkDTO requestChirkDTO) {
         String accessToken = extractAccessToken(authorizationHeader);
         Long userId = jwtTokenProvider.getIdFromJwt(accessToken);
-        requestChirkDTO.setIdUser(userId);
-        chirkService.createChirk(requestChirkDTO);
+       // requestChirkDTO.setIdUser(userId);
+        chirkService.createChirk(requestChirkDTO, userId);
     }
     @DeleteMapping("/delete")
     public void deleteChirk(@RequestHeader(name = "Authorization") String authorizationHeader,@RequestBody RequestChirkIdDTO requestChirkIdDTO) {
