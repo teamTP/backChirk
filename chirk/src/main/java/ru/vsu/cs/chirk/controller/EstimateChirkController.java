@@ -31,13 +31,9 @@ public class EstimateChirkController {
     public void createEstimate(@RequestHeader(name = "Authorization") String authorizationHeader, @RequestBody RequestEstimateDTO requestEstimateDTO) {
         String accessToken = extractAccessToken(authorizationHeader);
         Long userId = jwtTokenProvider.getIdFromJwt(accessToken);
-        requestEstimateDTO.setIdUser(userId);
-        estimateChirkService.createEstimate(requestEstimateDTO);
+        estimateChirkService.createEstimate(requestEstimateDTO, userId);
     }
-//    @DeleteMapping("/delete")
-//    public void deleteEstimate(@RequestBody RequestEstimateDTO requestEstimateDTO) {
-//        estimateChirkService.deleteEstimate(requestEstimateDTO);
-//    }
+
 private String extractAccessToken(String authorizationHeader) {
     if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
         return authorizationHeader.substring(7);
