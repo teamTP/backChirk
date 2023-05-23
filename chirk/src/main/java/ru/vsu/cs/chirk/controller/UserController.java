@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.vsu.cs.chirk.entity.DTO.JwtTokensDto;
 import ru.vsu.cs.chirk.entity.DTO.UserAuthorisationDTO;
 import ru.vsu.cs.chirk.entity.DTO.UserRegistrationDTO;
+import ru.vsu.cs.chirk.entity.DTO.requestDTO.RefreshTokenRequest;
 import ru.vsu.cs.chirk.security.JwtTokenProvider;
 import ru.vsu.cs.chirk.service.AuthenticationService;
 import ru.vsu.cs.chirk.service.UserService;
@@ -66,8 +67,8 @@ public class UserController {
         return ResponseEntity.ok().body(token);
     }
     @PostMapping(value = "/updateTokens", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<JwtTokensDto> updateTokens(@RequestHeader("Authorization") String authorizationHeader){
-        String refreshToken = extractToken(authorizationHeader);
+    public ResponseEntity<JwtTokensDto> updateTokens(@RequestBody RefreshTokenRequest refreshTokenRequest){
+        String refreshToken = refreshTokenRequest.getRefreshToken();
         JwtTokensDto token = authenticationService.refreshToken(refreshToken);
         return ResponseEntity.ok().body(token);
     }
