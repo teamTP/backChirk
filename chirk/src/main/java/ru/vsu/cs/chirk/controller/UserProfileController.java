@@ -55,7 +55,7 @@ public class UserProfileController {
     }
 
 
-
+    @GetMapping("/userProfile")
     public UserProfileDTO userProfile(@RequestHeader("Authorization") String authorizationHeader){
         String accessToken = extractAccessToken(authorizationHeader);
         Long userId = jwtTokenProvider.getIdFromJwt(accessToken);
