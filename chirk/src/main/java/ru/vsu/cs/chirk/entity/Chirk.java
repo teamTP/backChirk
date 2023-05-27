@@ -7,6 +7,7 @@ import ru.vsu.cs.chirk.entity.DTO.UserDTO;
 
 import java.sql.Date;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.Objects;
 
 @Entity
@@ -30,7 +31,7 @@ public class Chirk {
     private boolean isVisible;
 
     @Column(name = "date_publication")
-    private LocalDateTime date;
+    private ZonedDateTime date;
 
     @Column(name = "is_one_day")
     private boolean isOneDay;

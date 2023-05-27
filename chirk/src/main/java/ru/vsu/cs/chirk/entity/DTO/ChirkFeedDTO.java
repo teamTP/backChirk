@@ -4,8 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.vsu.cs.chirk.entity.Reaction;
 
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @AllArgsConstructor
 @Getter @Setter
@@ -14,11 +16,13 @@ public class ChirkFeedDTO {
 
     private long chirkId;
     private String text;
-    private LocalDateTime createdDate;
+    private ZonedDateTime createdDate;
     private String userFirstname;
     private String userLastname;
+    private int userIconId;
     private int countLike;
     private int countDislike;
+    private Reaction reaction;
 
     @Override
     public String toString() {
@@ -28,8 +32,10 @@ public class ChirkFeedDTO {
                 ", createdDate=" + createdDate +
                 ", userFirstname='" + userFirstname + '\'' +
                 ", userLastname='" + userLastname + '\'' +
+                ", userIconId=" + userIconId +
                 ", countLike=" + countLike +
                 ", countDislike=" + countDislike +
+                ", reaction=" + reaction +
                 '}';
     }
 }

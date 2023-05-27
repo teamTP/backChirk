@@ -2,14 +2,14 @@ package ru.vsu.cs.chirk.entity.DTO.requestDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
+@Getter @Setter
 @AllArgsConstructor
-public class RequestChirkDTO {
-        //private long idUser;
-        private String text;
-        private boolean isOneDay;
-    }
+@NoArgsConstructor
+public class RefreshTokenRequest {
 
+    private String refreshToken;
+
+}

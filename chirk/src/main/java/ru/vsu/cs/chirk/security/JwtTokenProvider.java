@@ -59,6 +59,11 @@ public class JwtTokenProvider {
         return decodedJWT.getSubject();
     }
 
+    public Long getIdFromJwt(String jwtToken) {
+        DecodedJWT decodedJWT = decodeJWT(jwtToken);
+        return decodedJWT.getClaim("id").asLong();
+    }
+
     private DecodedJWT decodeJWT(String jwtToken) {
         Algorithm algorithm = Algorithm.HMAC256(secretKey);
         JWTVerifier verifier = JWT.require(algorithm).build();

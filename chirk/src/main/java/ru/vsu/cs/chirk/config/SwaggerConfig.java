@@ -19,13 +19,13 @@ public class SwaggerConfig {
     @Bean
     public OpenAPI springShopOpenAPI() {
         Contact contactInfo = new Contact()
-                .name("Kirill Skofenko")
-                .email("tor505274@gmail.com")
-                .url("https://vk.com/goosepusher");
+                .name("Oleg Lukashev")
+                .email("oleglukashev1@gmail.com")
+                .url("https://vk.com/olegofriend69");
 
-        Info apiInfo = new Info().title("PicStorm API")
-                .description("Full API documentation of PicStorm application")
-                .version("v0.0.1")
+        Info apiInfo = new Info().title("Chirk API")
+                .description("Full API documentation of Chirk application")
+                .version("v1.0")
                 .contact(contactInfo);
 
 //        SecurityScheme securityScheme = new SecurityScheme()
