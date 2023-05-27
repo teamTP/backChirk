@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -14,6 +15,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 import ru.vsu.cs.chirk.controller.UserController;
 import ru.vsu.cs.chirk.entity.DTO.JwtTokensDto;
+import ru.vsu.cs.chirk.entity.DTO.UserAuthorisationDTO;
 import ru.vsu.cs.chirk.entity.DTO.UserRegistrationDTO;
 import ru.vsu.cs.chirk.security.JwtTokenProvider;
 
@@ -37,21 +39,45 @@ public class UserControllerTests {
 
     private UserRegistrationDTO userRegistrationDTO;
 
+    private UserAuthorisationDTO userAuthorisationDTO;
+
+    @Value("${email}")
+    private String email;
+
+    @Value("${password}")
+    private String password;
+
     @BeforeEach
     public void init(){
         userRegistrationDTO = new UserRegistrationDTO("janat", "java",
-                "janjav@mail.ru", "MyVerySecurePassword");
+                email, password);
+
+        userAuthorisationDTO = new UserAuthorisationDTO(email, password);
     }
 
     @Test
     public void testRegister() throws Exception {
-        given(userController.register(userRegistrationDTO)).willAnswer((invocation -> invocation.getArgument(0)));
+        given(userController.register(userRegistrationDTO))
+                .willAnswer((invocation -> invocation.getArgument(0)));
 
         String requestBody = objectMapper.writeValueAsString(userRegistrationDTO);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/user/register")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody))
-                .andExpect(status().isCreated());
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testAuthorise() throws Exception {
+        given(userController.authorise(userAuthorisationDTO))
+                .willAnswer((invocation -> invocation.getArgument(0)));
+
+        String requestBody = objectMapper.writeValueAsString(userAuthorisationDTO);
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/user/authorisation")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestBody))
+                .andExpect(status().isOk());
     }
 }
