@@ -82,4 +82,18 @@ public class ChirkControllerTests {
         verify(chirkController).deleteChirk(authorizationHeader, requestChirkIdDTO);
     }
 
+    @Test
+    public void testUpdateVisible() throws Exception {
+        doNothing().when(chirkController).updateVisible(authorizationHeader, requestChirkIdDTO);
+
+        String requestBody = objectMapper.writeValueAsString(requestChirkIdDTO);
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/chirks/updateVisible")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", authorizationHeader)
+                        .content(requestBody))
+                .andExpect(status().isNoContent());
+
+        verify(chirkController).updateVisible(authorizationHeader, requestChirkIdDTO);
+    }
 }
