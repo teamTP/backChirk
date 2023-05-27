@@ -17,6 +17,7 @@ import ru.vsu.cs.chirk.controller.UserController;
 import ru.vsu.cs.chirk.entity.DTO.JwtTokensDto;
 import ru.vsu.cs.chirk.entity.DTO.UserAuthorisationDTO;
 import ru.vsu.cs.chirk.entity.DTO.UserRegistrationDTO;
+import ru.vsu.cs.chirk.entity.DTO.requestDTO.RefreshTokenRequest;
 import ru.vsu.cs.chirk.security.JwtTokenProvider;
 
 import static org.mockito.BDDMockito.given;
@@ -41,6 +42,11 @@ public class UserControllerTests {
 
     private UserAuthorisationDTO userAuthorisationDTO;
 
+    private RefreshTokenRequest refreshTokenRequest;
+
+    @Value("${refreshToken}")
+    private String refreshToken;
+
     @Value("${email}")
     private String email;
 
@@ -53,6 +59,8 @@ public class UserControllerTests {
                 email, password);
 
         userAuthorisationDTO = new UserAuthorisationDTO(email, password);
+
+        refreshTokenRequest = new RefreshTokenRequest(refreshToken);
     }
 
     @Test
@@ -76,6 +84,19 @@ public class UserControllerTests {
         String requestBody = objectMapper.writeValueAsString(userAuthorisationDTO);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/user/authorisation")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestBody))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testUpdateTokens() throws Exception {
+        given(userController.updateTokens(refreshTokenRequest))
+                .willAnswer((invocation -> invocation.getArgument(0)));
+
+        String requestBody = objectMapper.writeValueAsString(refreshTokenRequest);
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/user/updateTokens")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody))
                 .andExpect(status().isOk());
