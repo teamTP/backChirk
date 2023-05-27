@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -15,6 +16,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 import ru.vsu.cs.chirk.controller.ChirkController;
 import ru.vsu.cs.chirk.entity.DTO.requestDTO.RequestChirkDTO;
+import ru.vsu.cs.chirk.entity.DTO.requestDTO.RequestChirkIdDTO;
 import ru.vsu.cs.chirk.security.JwtTokenProvider;
 
 import static org.mockito.Mockito.doNothing;
@@ -38,21 +40,26 @@ public class ChirkControllerTests {
 
     private RequestChirkDTO requestChirkDto;
 
+    @Value("${authorizationHeader}")
+    private String authorizationHeader;
+
     @BeforeEach
     public void init() {
-        requestChirkDto = new RequestChirkDTO(1, "Hello chirk", true);
+        requestChirkDto = new RequestChirkDTO("Hello chirk", true);
     }
 
     @Test
     public void testCreateChirk() throws Exception {
-        doNothing().when(chirkController).createChirk(requestChirkDto);
+        doNothing().when(chirkController).createChirk(authorizationHeader, requestChirkDto);
 
         String requestBody = objectMapper.writeValueAsString(requestChirkDto);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/chirks/add")
-                        .contentType(MediaType.APPLICATION_JSON).content(requestBody))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", authorizationHeader)
+                        .content(requestBody))
                 .andExpect(status().isCreated());
 
-        verify(chirkController).createChirk(requestChirkDto);
+        verify(chirkController).createChirk(authorizationHeader, requestChirkDto);
     }
 }
