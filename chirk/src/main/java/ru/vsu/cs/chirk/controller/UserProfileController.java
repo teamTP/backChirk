@@ -26,21 +26,21 @@ public class UserProfileController {
     private UserProfileService userProfileService;
 
     @GetMapping("/myChirks")
-    public List<ChirkFeedDTO> usersChirks(@RequestHeader("Authorization") String authorizationHeader, int page){
+    public List<ChirkFeedDTO> usersChirks(@RequestHeader("Authorization") String authorizationHeader,@RequestParam int page){
         String accessToken = extractAccessToken(authorizationHeader);
         Long userId = jwtTokenProvider.getIdFromJwt(accessToken);
         return userProfileService.getUsersPosts(userId, page);
     }
 
     @GetMapping("/myLikedChirks")
-    public List<ChirkFeedDTO> userLikedChirks(@RequestHeader("Authorization") String authorizationHeader, int page){
+    public List<ChirkFeedDTO> userLikedChirks(@RequestHeader("Authorization") String authorizationHeader,@RequestParam int page){
         String accessToken = extractAccessToken(authorizationHeader);
         Long userId = jwtTokenProvider.getIdFromJwt(accessToken);
         return userProfileService.getLikedUsersPosts(userId, page);
     }
 
     @GetMapping("/myDislikedChirks")
-    public List<ChirkFeedDTO> userDislikedChirks(@RequestHeader("Authorization") String authorizationHeader, int page){
+    public List<ChirkFeedDTO> userDislikedChirks(@RequestHeader("Authorization") String authorizationHeader,@RequestParam int page){
         String accessToken = extractAccessToken(authorizationHeader);
         Long userId = jwtTokenProvider.getIdFromJwt(accessToken);
         return userProfileService.getDislikedUsersPosts(userId, page);
@@ -65,19 +65,6 @@ public class UserProfileController {
 
 
 
-
-        @PostMapping("/add")
-        public void createChirk(@RequestBody RequestChirkDTO requestChirkDTO) {
-            chirkService.createChirk(requestChirkDTO);
-        }
-        @DeleteMapping("/delete")
-        public void deleteChirk(@RequestBody RequestChirkIdDTO requestChirkIdDTO) {
-            chirkService.deleteChirk(requestChirkIdDTO.getId());
-        }
-        @PutMapping("/updateVisible")
-        public void updateVisible(@RequestBody RequestChirkIdDTO requestChirkIdDTO) {
-            chirkService.updateVisible(requestChirkIdDTO.getId());
-        }
 
 
 
