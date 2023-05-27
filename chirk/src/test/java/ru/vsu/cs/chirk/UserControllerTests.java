@@ -14,7 +14,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 import ru.vsu.cs.chirk.controller.UserController;
-import ru.vsu.cs.chirk.entity.DTO.JwtTokensDto;
 import ru.vsu.cs.chirk.entity.DTO.UserAuthorisationDTO;
 import ru.vsu.cs.chirk.entity.DTO.UserRegistrationDTO;
 import ru.vsu.cs.chirk.entity.DTO.requestDTO.RefreshTokenRequest;
