@@ -40,12 +40,16 @@ public class ChirkControllerTests {
 
     private RequestChirkDTO requestChirkDto;
 
+    private RequestChirkIdDTO requestChirkIdDTO;
+
     @Value("${authorizationHeader}")
     private String authorizationHeader;
 
     @BeforeEach
     public void init() {
         requestChirkDto = new RequestChirkDTO("Hello chirk", true);
+
+        requestChirkIdDTO = new RequestChirkIdDTO(1);
     }
 
     @Test
@@ -62,4 +66,20 @@ public class ChirkControllerTests {
 
         verify(chirkController).createChirk(authorizationHeader, requestChirkDto);
     }
+
+    @Test
+    public void testDeleteChirk() throws Exception {
+        doNothing().when(chirkController).deleteChirk(authorizationHeader, requestChirkIdDTO);
+
+        String requestBody = objectMapper.writeValueAsString(requestChirkIdDTO);
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/chirks/delete")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", authorizationHeader)
+                        .content(requestBody))
+                .andExpect(status().isNoContent());
+
+        verify(chirkController).deleteChirk(authorizationHeader, requestChirkIdDTO);
+    }
+
 }
