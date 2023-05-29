@@ -26,13 +26,9 @@ public class AuthenticationService {
     private final JwtTokenProvider jwtTokenProvider;
 
 
-    /**
-     * Тут нужно вместо юзера юзерДТО для регистрации, что бы без лишних данных приходило
-     */
+
 
     public JwtTokensDto registerUser(UserRegistrationDTO userDTO){
-
-
 
         if(userRepository.findByEmail(userDTO.getEmail()).isPresent()){
             throw new IllegalArgumentException("User with username: " + userDTO.getEmail() + "already exist");

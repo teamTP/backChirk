@@ -16,12 +16,6 @@ import ru.vsu.cs.chirk.service.UserService;
 @RequestMapping("/user")
 public class UserController {
 
-
-
-
-    @Autowired
-    private UserService userService;
-
     @Autowired
     private AuthenticationService authenticationService;
 
