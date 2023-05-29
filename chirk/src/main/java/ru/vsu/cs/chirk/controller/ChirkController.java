@@ -15,9 +15,12 @@ public class ChirkController {
     @Autowired
     private ChirkService chirkService;
 
+    //TODO: что то сделать с секьюрити куда и как только при токене пускают?
+
+
     @PostMapping("/add")
     public void createChirk(@RequestHeader(name = "Authorization") String authorizationHeader,@RequestBody RequestChirkDTO requestChirkDTO) {
-        String accessToken = extractAccessToken(authorizationHeader);
+        String accessToken = jwtTokenProvider.extractAccessToken(authorizationHeader);
         Long userId = jwtTokenProvider.getIdFromJwt(accessToken);
        // requestChirkDTO.setIdUser(userId);
         chirkService.createChirk(requestChirkDTO, userId);
@@ -30,10 +33,5 @@ public class ChirkController {
     public void updateVisible(@RequestHeader(name = "Authorization") String authorizationHeader,@RequestBody RequestChirkIdDTO requestChirkIdDTO) {
         chirkService.updateVisible(requestChirkIdDTO.getId());
     }
-    private String extractAccessToken(String authorizationHeader) {
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            return authorizationHeader.substring(7);
-        }
-        throw new IllegalArgumentException("Invalid Authorization header");
-    }
+
 }

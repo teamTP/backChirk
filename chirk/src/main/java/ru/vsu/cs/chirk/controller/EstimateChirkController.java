@@ -29,15 +29,9 @@ public class EstimateChirkController {
 
     @PostMapping("/add")
     public void createEstimate(@RequestHeader(name = "Authorization") String authorizationHeader, @RequestBody RequestEstimateDTO requestEstimateDTO) {
-        String accessToken = extractAccessToken(authorizationHeader);
+        String accessToken =jwtTokenProvider.extractAccessToken(authorizationHeader);
         Long userId = jwtTokenProvider.getIdFromJwt(accessToken);
         estimateChirkService.createEstimate(requestEstimateDTO, userId);
     }
 
-private String extractAccessToken(String authorizationHeader) {
-    if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-        return authorizationHeader.substring(7);
-    }
-    throw new IllegalArgumentException("Invalid Authorization header");
-}
 }

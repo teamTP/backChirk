@@ -27,37 +27,28 @@ public class UserProfileController {
 
     @GetMapping("/myChirks")
     public List<ChirkFeedDTO> usersChirks(@RequestHeader("Authorization") String authorizationHeader,@RequestParam int page){
-        String accessToken = extractAccessToken(authorizationHeader);
+        String accessToken = jwtTokenProvider.extractAccessToken(authorizationHeader);
         Long userId = jwtTokenProvider.getIdFromJwt(accessToken);
         return userProfileService.getUsersPosts(userId, page);
     }
 
     @GetMapping("/myLikedChirks")
     public List<ChirkFeedDTO> userLikedChirks(@RequestHeader("Authorization") String authorizationHeader,@RequestParam int page){
-        String accessToken = extractAccessToken(authorizationHeader);
+        String accessToken = jwtTokenProvider.extractAccessToken(authorizationHeader);
         Long userId = jwtTokenProvider.getIdFromJwt(accessToken);
         return userProfileService.getLikedUsersPosts(userId, page);
     }
 
     @GetMapping("/myDislikedChirks")
     public List<ChirkFeedDTO> userDislikedChirks(@RequestHeader("Authorization") String authorizationHeader,@RequestParam int page){
-        String accessToken = extractAccessToken(authorizationHeader);
+        String accessToken = jwtTokenProvider.extractAccessToken(authorizationHeader);
         Long userId = jwtTokenProvider.getIdFromJwt(accessToken);
         return userProfileService.getDislikedUsersPosts(userId, page);
     }
 
-    private String extractAccessToken(String authorizationHeader) {
-// Assuming the Authorization header value is in the format "Bearer <token>"
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            return authorizationHeader.substring(7); // Extract the token part after "Bearer "
-        }
-        throw new IllegalArgumentException("Invalid Authorization header");
-    }
-
-
-
+    @GetMapping("/userProfile")
     public UserProfileDTO userProfile(@RequestHeader("Authorization") String authorizationHeader){
-        String accessToken = extractAccessToken(authorizationHeader);
+        String accessToken = jwtTokenProvider.extractAccessToken(authorizationHeader);
         Long userId = jwtTokenProvider.getIdFromJwt(accessToken);
         return userProfileService.getUserProfileDTO(userId);
     }
