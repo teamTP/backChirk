@@ -142,4 +142,15 @@ public class UserProfileControllerTests {
                         .header("Authorization", authorizationHeader))
                 .andExpect(status().isOk());
     }
+
+    @Test
+    public void testUserInfoUpdateDTO() throws Exception {
+        String requestBody = objectMapper.writeValueAsString(userInfoUpdateDTO);
+
+        mockMvc.perform(post("/profile/updateUserInfo")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody)
+                        .header("Authorization", authorizationHeader))
+                .andExpect(status().isOk());
+    }
 }
