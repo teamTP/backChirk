@@ -110,4 +110,15 @@ public class UserProfileControllerTests {
                         .param("page", "1"))
                 .andExpect(status().isOk());
     }
+
+    @Test
+    public void testUserLikedChirks() throws Exception {
+        when(userProfileController.userLikedChirks(authorizationHeader, page)).thenReturn(chirkFeedDTOLikeList);
+
+        mockMvc.perform(get("/profile/myLikedChirks")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", authorizationHeader)
+                        .param("page", "1"))
+                .andExpect(status().isOk());
+    }
 }
