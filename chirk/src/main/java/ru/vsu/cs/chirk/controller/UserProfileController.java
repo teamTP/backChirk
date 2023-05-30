@@ -62,7 +62,7 @@ public class UserProfileController {
     @PostMapping("/updateUserInfo")
     public ResponseEntity<String> updateUserProfile(@RequestHeader("Authorization") String authorizationHeader,
                                                     @RequestBody UserInfoUpdateDTO userInfoUpdateDTO) {
-        String accessToken = extractAccessToken(authorizationHeader);
+        String accessToken = jwtTokenProvider.extractAccessToken(authorizationHeader);
         Long userId = jwtTokenProvider.getIdFromJwt(accessToken);
         userProfileService.updateUserInfo(userId, userInfoUpdateDTO);
         return ResponseEntity.status(HttpStatus.OK).body("User profile updated successfully");
@@ -72,7 +72,7 @@ public class UserProfileController {
     public ResponseEntity<String> updatePassword(@RequestHeader("Authorization") String authorizationHeader,
                                                  @RequestBody UserPasswordUpdateDTO userPasswordUpdateDTO) {
         try {
-            String accessToken = extractAccessToken(authorizationHeader);
+            String accessToken = jwtTokenProvider.extractAccessToken(authorizationHeader);
             Long userId = jwtTokenProvider.getIdFromJwt(accessToken);
 
             userProfileService.updateUserPassword(userPasswordUpdateDTO, userId);
