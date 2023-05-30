@@ -52,37 +52,50 @@ public class SecurityConfig implements WebMvcConfigurer {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable();
+        http.cors();
+        http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.authorizeHttpRequests()
-                .requestMatchers(GET, "/**").permitAll()
-                .requestMatchers(POST, "/**").permitAll()
-                .requestMatchers(GET, "/categories/", "/products/", "/v3/api-docs/",
-                        "/swagger-ui/", "/swagger-ui.html").permitAll()
-                .requestMatchers(GET, "/user/**").permitAll()
-                .requestMatchers(POST, "/user/**").permitAll()
-                .requestMatchers(GET, "/chirks/**").permitAll()
-                .requestMatchers(POST, "/chirks/**").permitAll()
-                .requestMatchers(DELETE, "/chirks/**").permitAll()
-                .requestMatchers(PUT, "/chirks/**").permitAll()
-                .requestMatchers(POST, "/estimate/**").permitAll()
-                .requestMatchers(DELETE, "/estimate/**").permitAll()
-                .requestMatchers(GET, "/profile/**").permitAll()
-                .requestMatchers(POST, "/profile/**").permitAll()
-                .requestMatchers(PUT, "/profile/**").permitAll()
+        http.authorizeHttpRequests().requestMatchers("/v3/api-docs/",
+                "/swagger-ui/", "/swagger-ui.html").permitAll();
+        http.authorizeHttpRequests().requestMatchers("/user/**", "/feed/**").permitAll();
+        http.authorizeHttpRequests().anyRequest().authenticated();
+        http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
+        return http.build();
+
+
+//        http.authorizeHttpRequests()
+//                .requestMatchers(GET, "/**").permitAll()
+//                .requestMatchers(POST, "/**").permitAll()
+//                .requestMatchers(GET, "/categories/", "/products/", "/v3/api-docs/",
+//                        "/swagger-ui/", "/swagger-ui.html").permitAll()
+//                .requestMatchers(GET, "/user/**").permitAll()
+//                .requestMatchers(POST, "/user/**").permitAll()
+//                .requestMatchers(GET, "/chirks/**").permitAll()
+//                .requestMatchers(POST, "/chirks/**").permitAll()
+//                .requestMatchers(DELETE, "/chirks/**").permitAll()
+//                .requestMatchers(PUT, "/chirks/**").permitAll()
+//                .requestMatchers(POST, "/estimate/**").permitAll()
+//                .requestMatchers(DELETE, "/estimate/**").permitAll()
+//                .requestMatchers(GET, "/profile/**").permitAll()
+//                .requestMatchers(POST, "/profile/**").permitAll()
+//                .requestMatchers(PUT, "/profile/**").permitAll()
+//                .anyRequest().authenticated();
+//        return http.build();
+
+
+
 //                .requestMatchers(GET, "/orders/").hasAnyAuthority(USER)
 
 //                .requestMatchers(POST, "/categories/**", "/products").hasAnyAuthority(ADMIN)
 //                .requestMatchers(PUT, "/products/").hasAnyAuthority(ADMIN)
 //                .requestMatchers(DELETE, "/categories/*", "/products/**").hasAnyAuthority(ADMIN)
 
-                .anyRequest().authenticated();
 
 //        http.authenticationProvider(authenticationProvider)
 //                .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class)
 //        ;
 
-        return http.build();
+
     }
 
     @Bean

@@ -70,4 +70,11 @@ public class JwtTokenProvider {
         return verifier.verify(jwtToken);
     }
 
+    public String extractAccessToken(String authorizationHeader) {
+        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+            return authorizationHeader.substring(7);
+        }
+        throw new IllegalArgumentException("Invalid Authorization header");
+    }
+
 }
