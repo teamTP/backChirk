@@ -132,4 +132,14 @@ public class UserProfileControllerTests {
                         .param("page", "1"))
                 .andExpect(status().isOk());
     }
+
+    @Test
+    public void testUserProfile() throws Exception {
+        when(userProfileController.userProfile(authorizationHeader)).thenReturn(userProfileDTO);
+
+        mockMvc.perform(get("/profile/userProfile")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", authorizationHeader))
+                .andExpect(status().isOk());
+    }
 }
