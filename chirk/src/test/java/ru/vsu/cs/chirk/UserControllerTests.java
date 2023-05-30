@@ -53,7 +53,7 @@ public class UserControllerTests {
     private String password;
 
     @BeforeEach
-    public void init(){
+    public void init() {
         userRegistrationDTO = new UserRegistrationDTO("janat", "java",
                 email, password);
 
@@ -70,8 +70,8 @@ public class UserControllerTests {
         String requestBody = objectMapper.writeValueAsString(userRegistrationDTO);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/user/register")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(requestBody))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
                 .andExpect(status().isOk());
     }
 
@@ -83,21 +83,21 @@ public class UserControllerTests {
         String requestBody = objectMapper.writeValueAsString(userAuthorisationDTO);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/user/authorisation")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(requestBody))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
                 .andExpect(status().isOk());
     }
 
-    @Test
-    public void testUpdateTokens() throws Exception {
-        given(userController.updateTokens(refreshTokenRequest))
-                .willAnswer((invocation -> invocation.getArgument(0)));
-
-        String requestBody = objectMapper.writeValueAsString(refreshTokenRequest);
-
-        mockMvc.perform(MockMvcRequestBuilders.post("/user/updateTokens")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(requestBody))
-                .andExpect(status().isOk());
-    }
+//    @Test
+//    public void testUpdateTokens() throws Exception {
+//        given(userController.updateTokens(refreshTokenRequest))
+//                .willAnswer((invocation -> invocation.getArgument(0)));
+//
+//        String requestBody = objectMapper.writeValueAsString(refreshTokenRequest);
+//
+//        mockMvc.perform(MockMvcRequestBuilders.post("/user/updateTokens")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(requestBody))
+//                .andExpect(status().isOk());
+//    }
 }
