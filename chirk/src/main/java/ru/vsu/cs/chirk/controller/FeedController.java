@@ -54,7 +54,8 @@ public class FeedController {
 //    }
 
     @GetMapping
-    public List<ChirkFeedDTO> feed(@RequestHeader(name = "Authorization", required = false) String authorizationHeader, int page){
+    public List<ChirkFeedDTO> feed(@RequestHeader(name = "Authorization", required = false) String authorizationHeader,
+                                   @RequestParam int page){
         if (authorizationHeader == null) {
             return chirkService.createListChirkFeedWithoutUser(page);
         } else {
