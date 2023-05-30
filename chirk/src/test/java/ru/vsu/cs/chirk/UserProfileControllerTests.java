@@ -99,4 +99,15 @@ public class UserProfileControllerTests {
 
         userPasswordUpdateDTO = new UserPasswordUpdateDTO(password, "NewVerySecuredSecretPasswordThatNoOneKnowsAboutExceptMe");
     }
+
+    @Test
+    public void testUsersChirks() throws Exception {
+        when(userProfileController.usersChirks(authorizationHeader, page)).thenReturn(chirkFeedDTOList);
+
+        mockMvc.perform(get("/profile/myChirks")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", authorizationHeader)
+                        .param("page", "1"))
+                .andExpect(status().isOk());
+    }
 }
