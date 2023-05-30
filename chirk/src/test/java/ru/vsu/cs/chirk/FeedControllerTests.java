@@ -1,8 +1,5 @@
 package ru.vsu.cs.chirk;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,7 +22,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(controllers = FeedController.class)
@@ -68,7 +65,8 @@ public class FeedControllerTests {
 
         mockMvc.perform(get("/feed")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .header("Authorization", authorizationHeader))
-                        .andExpect(status().isOk());
+                        .header("Authorization", authorizationHeader)
+                        .param("page","1"))
+                .andExpect(status().isOk());
     }
 }
