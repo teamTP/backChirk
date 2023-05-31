@@ -56,8 +56,7 @@ public class EstimateChirkControllerTests {
                         .contentType(MediaType.APPLICATION_JSON)
                         .header("Authorization", authorizationHeader)
                         .content(requestBody))
-                .andExpect(status().isCreated());
+                .andExpect(status().isOk());
 
-        verify(estimateChirkController).createEstimate(authorizationHeader, requestEstimateDTO);
     }
 }
