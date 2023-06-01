@@ -17,5 +17,26 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    public boolean setAdminRole(String email){
+
+        if (userRepository.findByEmail(email).isPresent()) {
+            User newAdmin = userRepository.findByEmail(email).get();
+            newAdmin.setRole(ERole.MODERATOR);
+            userRepository.save(newAdmin);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean deleteAdminRole(String email){
+
+        if (userRepository.findByEmail(email).isPresent()) {
+            User newAdmin = userRepository.findByEmail(email).get();
+            newAdmin.setRole(ERole.ORDINARY);
+            userRepository.save(newAdmin);
+            return true;
+        }
+        return false;
+    }
 
 }

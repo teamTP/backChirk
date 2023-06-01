@@ -18,6 +18,10 @@ public enum ERole {
     MODERATOR(new ImmutableSet.Builder<RoleAuthority>()
             .addAll(ORDINARY.authorities)
             .add(BAN_PUBLICATION_AUTHORITY)
+            .build()),
+    ADMIRATOR(new ImmutableSet.Builder<RoleAuthority>()
+            .addAll(MODERATOR.authorities)
+            .add(ADD_NEW_MODER_AUTHORITY)
             .build());
 
 
