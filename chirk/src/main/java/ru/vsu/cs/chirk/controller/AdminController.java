@@ -17,7 +17,6 @@ public class AdminController {
     @Autowired
     private UserService userService;
 
-    //TODO: что то сделать с секьюрити куда и как только при токене пускают?
 
 
     @PostMapping("/addAdmin")
