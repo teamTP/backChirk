@@ -28,7 +28,7 @@ public class ChirkController {
         chirkService.createChirk(requestChirkDTO, userId);
     }
     @DeleteMapping("/delete")
-    @PreAuthorize("hasAuthority('BAN_PUBLICATION_AUTHORITY')")
+    @PreAuthorize("hasAuthority('UPLOAD_AUTHORITY')")
     public void deleteChirk(@RequestHeader(name = "Authorization") String authorizationHeader,@RequestBody RequestChirkIdDTO requestChirkIdDTO) {
         chirkService.deleteChirk(requestChirkIdDTO.getId());
     }

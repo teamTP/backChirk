@@ -126,7 +126,8 @@ public class ChirkService {
                 chirk.getUser().getIconId(),
                 count[0],
                 count[1],
-                reaction
+                reaction,
+                chirk.isVisible()
         );
     }
 
