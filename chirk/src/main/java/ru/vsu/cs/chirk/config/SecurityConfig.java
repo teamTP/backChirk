@@ -57,7 +57,8 @@ public class SecurityConfig implements WebMvcConfigurer {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeHttpRequests().requestMatchers("/v3/api-docs/**",
                 "/swagger-ui/**", "/swagger-ui.html").permitAll();
-        http.authorizeHttpRequests().requestMatchers("/user/**", "/feed/**").permitAll();
+        http.authorizeHttpRequests().requestMatchers("/user/**", "/feed/**",
+                "/admirator/registerAdmirator").permitAll();
         http.authorizeHttpRequests().anyRequest().authenticated();
         http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
