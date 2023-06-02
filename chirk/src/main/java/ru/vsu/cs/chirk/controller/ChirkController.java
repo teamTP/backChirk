@@ -18,7 +18,6 @@ public class ChirkController {
 
     //TODO: что то сделать с секьюрити куда и как только при токене пускают?
 
-
     @PostMapping("/add")
     @PreAuthorize("hasAuthority('UPLOAD_AUTHORITY')")
     public void createChirk(@RequestHeader(name = "Authorization") String authorizationHeader,@RequestBody RequestChirkDTO requestChirkDTO) {
@@ -37,5 +36,4 @@ public class ChirkController {
     public void updateVisible(@RequestHeader(name = "Authorization") String authorizationHeader,@RequestBody RequestChirkIdDTO requestChirkIdDTO) {
         chirkService.updateVisible(requestChirkIdDTO.getId());
     }
-
 }

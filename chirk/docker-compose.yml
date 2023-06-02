@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  database:
+    image: postgres:15-alpine
+    restart: always
+    ports:
+      - 5050:5432
+    container_name: db_postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=gfhjkm7757
+      - POSTGRES_DB=ChirkV2
+    command: ["postgres","-c","wal_level=logical"]
+    volumes:
+      - ./chirkdata:/var/lib/postgresql/data
+
+  backend:
+    build: .
+    ports:
+      - 8080:8080
+    depends_on:
+      - database
+    environment:
+      - HOST=database
+
