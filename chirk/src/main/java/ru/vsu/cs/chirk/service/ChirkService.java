@@ -80,7 +80,7 @@ public class ChirkService {
     }
     public List<Chirk> getPage(int page, User user, boolean isLiked){
         Pageable pageable = PageRequest.of(page, 10);
-        Page<EstimateChirk> estimateChirkPage = estimateChirkRepository.findAllByUserIDAndIsCanceledReactionAndIsLikedOrderByDateDesc(
+        Page<EstimateChirk> estimateChirkPage = estimateChirkRepository.findAllByUserIDAndIsCanceledReactionAndIsLiked(
                                                                                             user,
                                                                                             false,
                                                                                             isLiked,
