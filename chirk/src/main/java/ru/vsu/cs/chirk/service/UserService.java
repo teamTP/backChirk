@@ -21,8 +21,8 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
-    @Autowired
-    private UserForAdminPanelMapper userForAdminPanelMapper;
+
+    private final UserForAdminPanelMapper userForAdminPanelMapper = new UserForAdminPanelMapper();
 
     public boolean setAdminRole(String email){
 
@@ -55,4 +55,16 @@ public class UserService {
         return userForAdminPanelDTOS;
     }
 
+    public List<UserForAdminPanelDTO> getAllUsersByFilter(String search, Boolean filterByEmail) {
+        List<User> userList = (filterByEmail ?
+                userRepository.findByEmail(search) :
+                userRepository.findByLastname(search)
+        ).stream().toList();
+
+        List<UserForAdminPanelDTO> userForAdminPanelDTOS = new ArrayList<>();
+        for(User user : userList){
+            userForAdminPanelDTOS.add(userForAdminPanelMapper.convertToDTO(user));
+        }
+        return userForAdminPanelDTOS;
+    }
 }

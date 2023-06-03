@@ -45,4 +45,14 @@ public class AdminPanelController {
     }
 
 
+    // if filterByEmail == false it's filter by lastname
+    @GetMapping("/byFilter")
+    public List<UserForAdminPanelDTO> getAllUsersByFilter( @RequestParam String search,  @RequestParam boolean filterByEmail){
+        return userService.getAllUsersByFilter(search, filterByEmail);
+    }
+
+
+
+
+
 }
