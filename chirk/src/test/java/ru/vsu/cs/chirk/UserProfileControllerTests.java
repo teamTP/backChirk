@@ -124,7 +124,7 @@ public class UserProfileControllerTests {
 
     @Test
     public void testUserDislikedChirks() throws Exception {
-        when(userProfileController.userLikedChirks(authorizationHeader, page)).thenReturn(chirkFeedDTODislikeList);
+        when(userProfileController.userDislikedChirks(authorizationHeader, page)).thenReturn(chirkFeedDTODislikeList);
 
         mockMvc.perform(get("/profile/myDislikedChirks")
                         .contentType(MediaType.APPLICATION_JSON)
