@@ -59,17 +59,12 @@ public class FeedController {
         if (authorizationHeader == null) {
             return chirkService.createListChirkFeedWithoutUser(page);
         } else {
-            String accessToken = extractAccessToken(authorizationHeader);
+            String accessToken = jwtTokenProvider.extractAccessToken(authorizationHeader);
             Long userId = jwtTokenProvider.getIdFromJwt(accessToken);
             return chirkService.createListChirkFeed(page, userId);
         }
     }
-    private String extractAccessToken(String authorizationHeader) {
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            return authorizationHeader.substring(7);
-        }
-        throw new IllegalArgumentException("Invalid Authorization header");
-    }
+
 
 
 

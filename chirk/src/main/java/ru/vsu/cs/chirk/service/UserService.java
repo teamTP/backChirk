@@ -17,20 +17,26 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User hello(){
-        System.out.println("helloo2222");
-        User user = new User();
-//        User user1 = new User("firstname", "lastname", "username", "email", "password");
-        user.setFirstname("firstname");
-        user.setEmail("email");
-        user.setPassword("password");
-        user.setLastname("lastname");
-        user.setUsername("id" + user.getId());
-        user.setRole(ERole.ORDINARY);
-//        userRepository.save(user);
-        System.out.println("helloo!!!!!!!!!!!!!!!!!!");
-        return user;
+    public boolean setAdminRole(String email){
+
+        if (userRepository.findByEmail(email).isPresent()) {
+            User newAdmin = userRepository.findByEmail(email).get();
+            newAdmin.setRole(ERole.MODERATOR);
+            userRepository.save(newAdmin);
+            return true;
+        }
+        return false;
     }
 
+    public boolean deleteAdminRole(String email){
+
+        if (userRepository.findByEmail(email).isPresent()) {
+            User newAdmin = userRepository.findByEmail(email).get();
+            newAdmin.setRole(ERole.ORDINARY);
+            userRepository.save(newAdmin);
+            return true;
+        }
+        return false;
+    }
 
 }

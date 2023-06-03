@@ -25,7 +25,7 @@ public class SwaggerConfig {
 
         Info apiInfo = new Info().title("Chirk API")
                 .description("Full API documentation of Chirk application")
-                .version("v1.0")
+                .version("v2.0")
                 .contact(contactInfo);
 
 //        SecurityScheme securityScheme = new SecurityScheme()

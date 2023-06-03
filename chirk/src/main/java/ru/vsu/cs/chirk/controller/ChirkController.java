@@ -1,6 +1,7 @@
 package ru.vsu.cs.chirk.controller;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.vsu.cs.chirk.entity.Chirk;
 import ru.vsu.cs.chirk.entity.DTO.requestDTO.RequestChirkDTO;
@@ -15,25 +16,26 @@ public class ChirkController {
     @Autowired
     private ChirkService chirkService;
 
+    //TODO: что то сделать с секьюрити куда и как только при токене пускают?
+
+
     @PostMapping("/add")
+    @PreAuthorize("hasAuthority('UPLOAD_AUTHORITY')")
     public void createChirk(@RequestHeader(name = "Authorization") String authorizationHeader,@RequestBody RequestChirkDTO requestChirkDTO) {
-        String accessToken = extractAccessToken(authorizationHeader);
+        String accessToken = jwtTokenProvider.extractAccessToken(authorizationHeader);
         Long userId = jwtTokenProvider.getIdFromJwt(accessToken);
        // requestChirkDTO.setIdUser(userId);
         chirkService.createChirk(requestChirkDTO, userId);
     }
     @DeleteMapping("/delete")
+    @PreAuthorize("hasAuthority('UPLOAD_AUTHORITY')")
     public void deleteChirk(@RequestHeader(name = "Authorization") String authorizationHeader,@RequestBody RequestChirkIdDTO requestChirkIdDTO) {
         chirkService.deleteChirk(requestChirkIdDTO.getId());
     }
     @PutMapping("/updateVisible")
+    @PreAuthorize("hasAuthority('UPLOAD_AUTHORITY')")
     public void updateVisible(@RequestHeader(name = "Authorization") String authorizationHeader,@RequestBody RequestChirkIdDTO requestChirkIdDTO) {
         chirkService.updateVisible(requestChirkIdDTO.getId());
     }
-    private String extractAccessToken(String authorizationHeader) {
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            return authorizationHeader.substring(7);
-        }
-        throw new IllegalArgumentException("Invalid Authorization header");
-    }
+
 }

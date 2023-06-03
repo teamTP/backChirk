@@ -23,6 +23,8 @@ public class ChirkFeedDTO {
     private int countLike;
     private int countDislike;
     private Reaction reaction;
+    private boolean visible;
+
 
     @Override
     public String toString() {
