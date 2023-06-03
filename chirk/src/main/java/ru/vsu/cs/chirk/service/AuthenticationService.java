@@ -44,6 +44,22 @@ public class AuthenticationService {
 
     }
 
+    public JwtTokensDto registerAdmirator(UserRegistrationDTO userDTO){
+
+        if(userRepository.findByEmail(userDTO.getEmail()).isPresent()){
+            throw new IllegalArgumentException("User with username: " + userDTO.getEmail() + "already exist");
+        }
+
+        User newUser = new User(userDTO.getFirstname(),
+                userDTO.getLastname(),
+                userDTO.getEmail(),
+                passwordEncoder.encode(userDTO.getPassword()),
+                ERole.ADMIRATOR);
+        userRepository.save(newUser);
+        return createTokensForUser(newUser);
+
+    }
+
 
     private JwtTokensDto createTokensForUser(User user) {
 //        if (user.getRole().equals(ERole.MODERATOR.BANNED)) {
