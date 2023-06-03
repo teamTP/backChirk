@@ -14,7 +14,7 @@ import java.util.List;
 public interface ChirkRepository extends JpaRepository<Chirk, Long> {
 
     @NonNull
-    Page<Chirk> findAllByIsVisibleOrderByDate(@NonNull Pageable pageable, boolean isVisible);
+    Page<Chirk> findAllByIsVisibleOrderByDateDesc(@NonNull Pageable pageable, boolean isVisible);
 
     List<Chirk> findAllByUser(User user);
 
