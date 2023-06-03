@@ -68,7 +68,7 @@ public class ChirkService {
 
     public List<Chirk> getPage(int page){
         Pageable pageable = PageRequest.of(page, 10);
-        Page<Chirk> chirkPage = chirkRepository.findAllIsVisibleOrderByDate(pageable, true);
+        Page<Chirk> chirkPage = chirkRepository.findAllByIsVisibleOrderByDate(pageable, true);
         return chirkPage.stream().toList();
     }
 //    public List<Chirk> getLikedOrDislikedUsersPosts(Long userID, boolean isLiked){
