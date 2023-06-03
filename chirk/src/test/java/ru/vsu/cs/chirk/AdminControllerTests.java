@@ -52,4 +52,14 @@ public class AdminControllerTests {
                 .param("email", "janjav@mail.ru"))
                 .andExpect(status().isOk());
     }
+
+    @Test
+    public void testDeleteAdmin() throws Exception {
+        doNothing().when(adminController).deleteAdmin(authorizationHeader, email);
+
+        mockMvc.perform(post("/admirator/deleteAdmin")
+                        .header("Authorization", authorizationHeader)
+                        .param("email", "janjav@mail.ru"))
+                .andExpect(status().isOk());
+    }
 }
