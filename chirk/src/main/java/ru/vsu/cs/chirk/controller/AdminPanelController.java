@@ -29,7 +29,8 @@ public class AdminPanelController {
 //        String accessToken = jwtTokenProvider.extractAccessToken(authorizationHeader);
 //        Long userId = jwtTokenProvider.getIdFromJwt(accessToken);
         // requestChirkDTO.setIdUser(userId);
-        userService.setAdminRole(email);
+        if(!checkIsAdmirator(email))
+            userService.setAdminRole(email);
     }
 
     @PostMapping("/deleteAdmin")
@@ -39,8 +40,11 @@ public class AdminPanelController {
 //        String accessToken = jwtTokenProvider.extractAccessToken(authorizationHeader);
 //        Long userId = jwtTokenProvider.getIdFromJwt(accessToken);
         // requestChirkDTO.setIdUser(userId);
-        userService.deleteAdminRole(email);
+        if(!checkIsAdmirator(email))
+            userService.deleteAdminRole(email);
     }
+
+
 
     @GetMapping
     @PreAuthorize("hasAuthority('ADD_NEW_MODER_AUTHORITY')")
@@ -60,6 +64,9 @@ public class AdminPanelController {
 //        return userService.getAllUsersByFilter(search, filterByEmail);
 //    }
 
+    private boolean checkIsAdmirator(String email){
+        return userService.isAdmirator(email);
+    }
 
 
 

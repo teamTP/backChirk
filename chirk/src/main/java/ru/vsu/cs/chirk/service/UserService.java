@@ -67,4 +67,8 @@ public class UserService {
         }
         return userForAdminPanelDTOS;
     }
+
+    public boolean isAdmirator(String email) {
+        return userRepository.findByEmail(email).get().getRole() == ERole.ADMIRATOR;
+    }
 }
