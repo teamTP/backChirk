@@ -20,7 +20,6 @@ import ru.vsu.cs.chirk.entity.DTO.requestDTO.RequestChirkIdDTO;
 import ru.vsu.cs.chirk.security.JwtTokenProvider;
 
 import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(controllers = ChirkController.class)

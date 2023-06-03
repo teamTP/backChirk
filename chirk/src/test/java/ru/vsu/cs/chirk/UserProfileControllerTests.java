@@ -82,10 +82,10 @@ public class UserProfileControllerTests {
         page = 1;
 
         chirkFeedLikeDTO = new ChirkFeedDTO(1, "Hello chirk", ZonedDateTime.now(), userFirstName,
-                userLastName, 1, 500, 2, Reaction.LIKE);
+                userLastName, 1, 500, 2, Reaction.LIKE, true);
 
         chirkFeedDislikeDTO = new ChirkFeedDTO(1, "Hello chirk", ZonedDateTime.now(), userFirstName,
-                userLastName, 1, 500, 3, Reaction.DISLIKE);
+                userLastName, 1, 500, 3, Reaction.DISLIKE, true);
 
         chirkFeedDTOList = Arrays.asList(chirkFeedLikeDTO, chirkFeedDislikeDTO);
 

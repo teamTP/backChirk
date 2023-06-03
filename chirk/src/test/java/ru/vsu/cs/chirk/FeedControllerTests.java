@@ -54,7 +54,7 @@ public class FeedControllerTests {
         page = 1;
 
         chirkFeedDTO = new ChirkFeedDTO(1, "Hello chirk", ZonedDateTime.now(), "janat",
-                "java", 1, 500, 2, Reaction.LIKE);
+                "java", 1, 500, 2, Reaction.LIKE, true);
 
         chirkFeedDTOList = Arrays.asList(chirkFeedDTO);
     }
