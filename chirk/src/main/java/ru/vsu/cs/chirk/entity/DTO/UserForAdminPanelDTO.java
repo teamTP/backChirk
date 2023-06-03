@@ -12,6 +12,6 @@ public class UserForAdminPanelDTO {
     private String firstname;
     private String lastname;
     private String email;
-    private List<String> listAuthority;
+    private String authority;
 
 }
