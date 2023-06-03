@@ -4,7 +4,6 @@ package ru.vsu.cs.chirk.service;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.checkerframework.checker.units.qual.C;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.scheduling.TaskScheduler;
@@ -68,7 +67,7 @@ public class ChirkService {
 
     public List<Chirk> getPage(int page){
         Pageable pageable = PageRequest.of(page, 10);
-        Page<Chirk> chirkPage = chirkRepository.findAll(pageable);
+        Page<Chirk> chirkPage = chirkRepository.findAllByIsVisibleOrderByDateDesc(pageable, true);
         return chirkPage.stream().toList();
     }
 //    public List<Chirk> getLikedOrDislikedUsersPosts(Long userID, boolean isLiked){
