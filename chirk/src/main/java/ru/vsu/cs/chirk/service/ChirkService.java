@@ -75,12 +75,12 @@ public class ChirkService {
 //    }
     public List<Chirk> getPage(int page, User user){
         Pageable pageable = PageRequest.of(page, 10);
-        Page<Chirk> chirkPage = chirkRepository.findAllByUser(user, pageable);
+        Page<Chirk> chirkPage = chirkRepository.findAllByUserOrderByDateDesc(user, pageable);
         return chirkPage.stream().toList();
     }
     public List<Chirk> getPage(int page, User user, boolean isLiked){
         Pageable pageable = PageRequest.of(page, 10);
-        Page<EstimateChirk> estimateChirkPage = estimateChirkRepository.findAllByUserIDAndIsCanceledReactionAndIsLiked(
+        Page<EstimateChirk> estimateChirkPage = estimateChirkRepository.findAllByUserIDAndIsCanceledReactionAndIsLikedOrderByDateDesc(
                                                                                             user,
                                                                                             false,
                                                                                             isLiked,

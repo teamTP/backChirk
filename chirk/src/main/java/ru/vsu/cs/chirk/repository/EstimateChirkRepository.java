@@ -26,9 +26,9 @@ public interface EstimateChirkRepository extends JpaRepository<EstimateChirk, Lo
                                                       boolean isCanceledReaction,
                                                       @NonNull Pageable pageable);
 
-    Page<EstimateChirk> findAllByUserIDAndIsCanceledReactionAndIsLiked( User userID,
-                                                                        boolean isCanceledReaction,
-                                                                        boolean isLiked,
-                                                                        @NonNull Pageable pageable);
+    Page<EstimateChirk> findAllByUserIDAndIsCanceledReactionAndIsLikedOrderByDateDesc(User userID,
+                                                                                      boolean isCanceledReaction,
+                                                                                      boolean isLiked,
+                                                                                      @NonNull Pageable pageable);
 
 }
