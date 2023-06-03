@@ -88,16 +88,16 @@ public class UserControllerTests {
                 .andExpect(status().isOk());
     }
 
-//    @Test
-//    public void testUpdateTokens() throws Exception {
-//        given(userController.updateTokens(refreshTokenRequest))
-//                .willAnswer((invocation -> invocation.getArgument(0)));
-//
-//        String requestBody = objectMapper.writeValueAsString(refreshTokenRequest);
-//
-//        mockMvc.perform(MockMvcRequestBuilders.post("/user/updateTokens")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(requestBody))
-//                .andExpect(status().isOk());
-//    }
+    @Test
+    public void testUpdateTokens() throws Exception {
+        given(userController.updateTokens(refreshTokenRequest))
+                .willAnswer((invocation -> invocation.getArgument(0)));
+
+        String requestBody = objectMapper.writeValueAsString(refreshTokenRequest);
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/user/updateTokens")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestBody))
+                .andExpect(status().isOk());
+    }
 }
