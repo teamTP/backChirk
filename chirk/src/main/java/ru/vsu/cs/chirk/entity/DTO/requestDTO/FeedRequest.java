@@ -1,9 +1,6 @@
 package ru.vsu.cs.chirk.entity.DTO.requestDTO;
 
 import lombok.Getter;
-import ru.vsu.cs.chirk.entity.DTO.ChirkDTO;
-import ru.vsu.cs.chirk.entity.DTO.ChirkFeedDTO;
-import ru.vsu.cs.chirk.entity.DTO.UserDTO;
 
 @Getter
 public class FeedRequest {

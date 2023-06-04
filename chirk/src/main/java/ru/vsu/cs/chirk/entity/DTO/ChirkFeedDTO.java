@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.vsu.cs.chirk.entity.Reaction;
-
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
 @AllArgsConstructor

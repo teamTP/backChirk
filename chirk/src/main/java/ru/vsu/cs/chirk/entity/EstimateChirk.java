@@ -6,22 +6,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-//import org.hibernate.annotations.Entity;
-//import org.hibernate.annotations.Table;
 
 @Entity
-//@Table(name = "estimate_chirk")
 @Table(uniqueConstraints = {@UniqueConstraint(name = "estimate_chirk", columnNames = { "users", "chirk" })})
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class EstimateChirk {
-
-//    @EmbeddedId
-//    private EstimateChirkPK   id;
-
-
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

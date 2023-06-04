@@ -13,7 +13,6 @@ import ru.vsu.cs.chirk.entity.ERole;
 import ru.vsu.cs.chirk.entity.User;
 import ru.vsu.cs.chirk.repository.UserRepository;
 import ru.vsu.cs.chirk.security.JwtTokenProvider;
-
 import java.util.NoSuchElementException;
 
 @Service
@@ -24,9 +23,6 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;
-
-
-
 
     public JwtTokensDto registerUser(UserRegistrationDTO userDTO){
 
@@ -62,17 +58,12 @@ public class AuthenticationService {
 
 
     private JwtTokensDto createTokensForUser(User user) {
-//        if (user.getRole().equals(ERole.MODERATOR.BANNED)) {
-//            throw new AccessDeniedException("Пользователь заблокирован");
-//        }
-
         return new JwtTokensDto(jwtTokenProvider.generateAccessToken(user),
                 jwtTokenProvider.generateRefreshToken(user));
     }
 
 
     public JwtTokensDto loginUser(UserAuthorisationDTO userAuthorisationDTO) {
-        //TODO хочет убрать 64 стр
         User user = userRepository.findByEmail(userAuthorisationDTO.getEmail()).get();
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 user.getUsername(), userAuthorisationDTO.getPassword()));

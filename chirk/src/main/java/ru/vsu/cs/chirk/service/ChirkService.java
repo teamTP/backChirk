@@ -19,7 +19,6 @@ import ru.vsu.cs.chirk.repository.ChirkRepository;
 import ru.vsu.cs.chirk.repository.EstimateChirkRepository;
 import ru.vsu.cs.chirk.repository.UserRepository;
 import org.springframework.data.domain.Pageable;
-
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -38,11 +37,7 @@ public class ChirkService {
     private final ChirkRepository chirkRepository;
     private final UserRepository userRepository;
     private final EstimateChirkRepository estimateChirkRepository;
-
-    //??????????
     private final EstimateChirkService estimateChirkService;
-
-    //??????????
 
     public void createChirk(RequestChirkDTO requestChirkDTO, Long userId) {
         Chirk chirk = new Chirk();
@@ -70,14 +65,13 @@ public class ChirkService {
         Page<Chirk> chirkPage = chirkRepository.findAllByIsVisibleOrderByDateDesc(pageable, true);
         return chirkPage.stream().toList();
     }
-//    public List<Chirk> getLikedOrDislikedUsersPosts(Long userID, boolean isLiked){
-//        return estimateChirkService.estimateChirkRepository.findAllByIsLikedAndIsCanceledReaction(isLiked, false);
-//    }
+
     public List<Chirk> getPage(int page, User user){
         Pageable pageable = PageRequest.of(page, 10);
         Page<Chirk> chirkPage = chirkRepository.findAllByUserOrderByDateDesc(user, pageable);
         return chirkPage.stream().toList();
     }
+
     public List<Chirk> getPage(int page, User user, boolean isLiked){
         Pageable pageable = PageRequest.of(page, 10);
         Page<EstimateChirk> estimateChirkPage = estimateChirkRepository.findAllByUserIDAndIsCanceledReactionAndIsLiked(
@@ -112,7 +106,6 @@ public class ChirkService {
         }
     }
 
-
     public ChirkFeedDTO createChirkForFeed(Chirk chirk, Reaction reaction){
         int[] count = estimateChirkService.getCountLikeAndDis(chirk);
 
@@ -136,6 +129,7 @@ public class ChirkService {
                 .orElseThrow(() -> new NoSuchElementException("User with id: " + userId + "not exist"));
         return createListChirkFeedDTO(user, chirkList);
     }
+
     public List<ChirkFeedDTO> createListChirkFeedWithoutUser(int page){
         List<Chirk> chirkList = getPage(page);
         return createListChirkFeedDTOWithoutUser(chirkList);
@@ -156,7 +150,6 @@ public class ChirkService {
         return createListChirkFeedDTO(user, chirkList);
     }
 
-
     private List<ChirkFeedDTO> createListChirkFeedDTO(User user, List<Chirk> chirkList){
         List<ChirkFeedDTO> chirkFeedDTOList = new ArrayList<>();
         for(Chirk chirk : chirkList){
@@ -171,6 +164,7 @@ public class ChirkService {
         }
         return chirkFeedDTOList;
     }
+
     private List<ChirkFeedDTO> createListChirkFeedDTOWithoutUser(List<Chirk> chirkList){
         List<ChirkFeedDTO> chirkFeedDTOList = new ArrayList<>();
         for(Chirk chirk : chirkList){
@@ -178,11 +172,6 @@ public class ChirkService {
         }
         return chirkFeedDTOList;
     }
-
-
-
-
-
 
     public List<ChirkFeedDTO> createListChirkFeed(int page){
         List<Chirk> chirkList = getPage(page);

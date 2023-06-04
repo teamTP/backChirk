@@ -4,7 +4,6 @@ package ru.vsu.cs.chirk.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import ru.vsu.cs.chirk.entity.Chirk;
 import ru.vsu.cs.chirk.entity.DTO.ChirkFeedDTO;
 import ru.vsu.cs.chirk.entity.DTO.UserInfoUpdateDTO;
 import ru.vsu.cs.chirk.entity.DTO.UserPasswordUpdateDTO;
@@ -12,7 +11,6 @@ import ru.vsu.cs.chirk.entity.DTO.UserProfileDTO;
 import ru.vsu.cs.chirk.entity.User;
 import ru.vsu.cs.chirk.repository.ChirkRepository;
 import ru.vsu.cs.chirk.repository.UserRepository;
-
 import java.util.List;
 import java.util.NoSuchElementException;
 

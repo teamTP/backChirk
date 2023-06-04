@@ -7,7 +7,6 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Repository;
 import ru.vsu.cs.chirk.entity.Chirk;
 import ru.vsu.cs.chirk.entity.User;
-
 import java.util.List;
 
 @Repository

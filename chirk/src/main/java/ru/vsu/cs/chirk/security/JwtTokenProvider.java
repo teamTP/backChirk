@@ -11,7 +11,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 import ru.vsu.cs.chirk.entity.User;
-
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,6 +18,7 @@ import java.util.stream.Collectors;
 @Component
 @RequiredArgsConstructor
 public class JwtTokenProvider {
+
     @Value("${jwt.secret-key}")
     private String secretKey;
     @Value("${jwt.access-validity}")

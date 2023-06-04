@@ -1,10 +1,8 @@
 package ru.vsu.cs.chirk.config;
 
-import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
-import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springdoc.core.customizers.OperationCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,19 +25,8 @@ public class SwaggerConfig {
                 .description("Full API documentation of Chirk application")
                 .version("v2.0")
                 .contact(contactInfo);
-
-//        SecurityScheme securityScheme = new SecurityScheme()
-//                .type(SecurityScheme.Type.HTTP)
-//                .scheme("bearer")
-//                .bearerFormat("JWT");
-//
-//        Components apiComponents = new Components()
-//                .addSecuritySchemes("JWT Authentication", securityScheme);
-
         return new OpenAPI()
-                .info(apiInfo)
-//                .components(apiComponents)
-                ;
+                .info(apiInfo);
     }
 
     @Bean

@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.vsu.cs.chirk.entity.DTO.AdminFilterDTO;
-import ru.vsu.cs.chirk.entity.DTO.ChirkFeedDTO;
 import ru.vsu.cs.chirk.entity.DTO.UserForAdminPanelDTO;
 import ru.vsu.cs.chirk.security.JwtTokenProvider;
 import ru.vsu.cs.chirk.service.UserService;
@@ -25,10 +24,6 @@ public class AdminPanelController {
     @PostMapping("/addAdmin")
     @PreAuthorize("hasAuthority('ADD_NEW_MODER_AUTHORITY')")
     public void addAdmin(@RequestHeader(name = "Authorization") String authorizationHeader, @RequestParam String email) {
-//    public void addAdmin(@RequestBody String email) {
-//        String accessToken = jwtTokenProvider.extractAccessToken(authorizationHeader);
-//        Long userId = jwtTokenProvider.getIdFromJwt(accessToken);
-        // requestChirkDTO.setIdUser(userId);
         if(!checkIsAdmirator(email))
             userService.setAdminRole(email);
     }
@@ -36,10 +31,6 @@ public class AdminPanelController {
     @PostMapping("/deleteAdmin")
     @PreAuthorize("hasAuthority('ADD_NEW_MODER_AUTHORITY')")
     public void deleteAdmin(@RequestHeader(name = "Authorization") String authorizationHeader, @RequestParam String email) {
-//    public void deleteAdmin(@RequestBody String email) {
-//        String accessToken = jwtTokenProvider.extractAccessToken(authorizationHeader);
-//        Long userId = jwtTokenProvider.getIdFromJwt(accessToken);
-        // requestChirkDTO.setIdUser(userId);
         if(!checkIsAdmirator(email))
             userService.deleteAdminRole(email);
     }
@@ -59,15 +50,8 @@ public class AdminPanelController {
         return userService.getAllUsersByFilter(adminFilterDTO.getSearch(), adminFilterDTO.isFilterByEmail());
     }
 
-//    @GetMapping("/byFilter")
-//    public List<UserForAdminPanelDTO> getAllUsersByFilter( @RequestBody String search, @RequestBody boolean filterByEmail){
-//        return userService.getAllUsersByFilter(search, filterByEmail);
-//    }
-
     private boolean checkIsAdmirator(String email){
         return userService.isAdmirator(email);
     }
-
-
 
 }

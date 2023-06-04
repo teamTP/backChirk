@@ -8,7 +8,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ru.vsu.cs.chirk.entity.User;
 import ru.vsu.cs.chirk.repository.UserRepository;
-
 import java.util.Collection;
 
 
@@ -20,14 +19,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User with username: " + username + " not found!"));
-//        if (user.getRole().equals(UserRole.BANNED)) {
-//            throw new UsernameNotFoundException("Пользователь заблокирован");
-//        }
-
 
         Collection<SimpleGrantedAuthority> authorities = user.getRole().getSimpleGrantedAuthorities();
+
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);    }
 
 

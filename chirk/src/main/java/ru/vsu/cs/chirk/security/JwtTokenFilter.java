@@ -1,6 +1,5 @@
 package ru.vsu.cs.chirk.security;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,7 +11,6 @@ import org.springframework.lang.NonNull;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-
 import java.io.IOException;
 
 @Component
@@ -34,8 +32,6 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             response.setStatus(HttpStatus.FORBIDDEN.value());
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
-//            ErrorDto errorDto = new ErrorDto(e.getMessage());
-//            new ObjectMapper().writeValue(response.getWriter(), errorDto);
         }
     }
 

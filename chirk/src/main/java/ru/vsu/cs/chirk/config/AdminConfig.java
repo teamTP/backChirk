@@ -5,13 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.access.prepost.PreAuthorize;
 import ru.vsu.cs.chirk.entity.DTO.UserRegistrationDTO;
 import ru.vsu.cs.chirk.service.AuthenticationService;
-import ru.vsu.cs.chirk.service.UserService;
-
-import java.util.Arrays;
-import java.util.Optional;
 
 
 @Configuration

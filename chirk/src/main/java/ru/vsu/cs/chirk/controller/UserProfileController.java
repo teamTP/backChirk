@@ -3,20 +3,14 @@ package ru.vsu.cs.chirk.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import ru.vsu.cs.chirk.entity.Chirk;
 import ru.vsu.cs.chirk.entity.DTO.ChirkFeedDTO;
 import ru.vsu.cs.chirk.entity.DTO.UserInfoUpdateDTO;
 import ru.vsu.cs.chirk.entity.DTO.UserPasswordUpdateDTO;
 import ru.vsu.cs.chirk.entity.DTO.UserProfileDTO;
-import ru.vsu.cs.chirk.entity.DTO.requestDTO.RequestChirkDTO;
-import ru.vsu.cs.chirk.entity.DTO.requestDTO.RequestChirkIdDTO;
-import ru.vsu.cs.chirk.entity.User;
 import ru.vsu.cs.chirk.security.JwtTokenProvider;
 import ru.vsu.cs.chirk.service.ChirkService;
 import ru.vsu.cs.chirk.service.UserProfileService;
-
 import java.util.List;
 import java.util.NoSuchElementException;
 

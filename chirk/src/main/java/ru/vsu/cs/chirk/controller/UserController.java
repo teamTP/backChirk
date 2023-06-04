@@ -11,7 +11,6 @@ import ru.vsu.cs.chirk.entity.DTO.UserAuthorisationDTO;
 import ru.vsu.cs.chirk.entity.DTO.UserRegistrationDTO;
 import ru.vsu.cs.chirk.entity.DTO.requestDTO.RefreshTokenRequest;
 import ru.vsu.cs.chirk.service.AuthenticationService;
-import ru.vsu.cs.chirk.service.UserService;
 
 @RestController
 @RequestMapping("/user")

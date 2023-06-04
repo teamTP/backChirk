@@ -4,11 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
-
-
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "users", uniqueConstraints = {
@@ -43,22 +39,8 @@ public class User {
     @Column(name = "password")
     private String password;
 
-//    @ManyToOne
-//    @JoinColumn(name = "role", referencedColumnName = "id", insertable = false, updatable = false)
-//    private UserRole role;
-
-
-
     @Column(name = "icon_id")
     private int iconId = (int)(Math.random()*5);
-
-//    @ManyToMany(fetch = FetchType.LAZY)
-//    @JoinTable(name = "user_roles",
-//            joinColumns = @JoinColumn(name = "user_id"),
-//            inverseJoinColumns = @JoinColumn(name = "role_id"))
-//
-//    private Set<UserRole> roles = new HashSet<>();
-
 
     @NotNull(message = "Enter user role")
     private ERole role;
