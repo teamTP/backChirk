@@ -10,7 +10,7 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=gfhjkm7757
-      - POSTGRES_DB=chirk
+      - POSTGRES_DB=chirkv2
     command: ["postgres","-c","wal_level=logical"]
     volumes:
       - ./chirkdata:/var/lib/postgresql/data
