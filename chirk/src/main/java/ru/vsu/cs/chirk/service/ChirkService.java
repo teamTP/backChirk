@@ -46,7 +46,7 @@ public class ChirkService {
         chirk.setText(requestChirkDTO.getText());
         chirk.setOneDay(requestChirkDTO.isOneDay());
         LocalDateTime now = LocalDateTime.now();
-        ZoneId zone = ZoneId.of("Europe/Moscow");
+        ZoneId zone = ZoneId.of("UTC");
           ZonedDateTime zdt = now.atZone(zone);
         chirk.setDate(zdt);
         chirk.setVisible(true);
