@@ -15,6 +15,17 @@ services:
     volumes:
       - ./chirkdata:/var/lib/postgresql/data
 
+  flaskapp:
+    image: eugeneokhryamkin/adminpanel:latest
+    ports:
+      - 5000:5015
+    depends_on:
+      - backend
+    environment:
+      - HOST=backend
+      - PORT=8080
+
+
   backend:
     build: .
     ports:
