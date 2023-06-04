@@ -12,4 +12,6 @@ public class ChirkApplication {
 		SpringApplication.run(ChirkApplication.class, args);
 	}
 
+
+
 }

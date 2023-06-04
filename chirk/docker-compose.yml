@@ -56,5 +56,5 @@ volumes:
   prometheus-data:
   grafana-data:
 
-networks:
-  chirknetwork:
+#networks:
+#  chirknetwork:
